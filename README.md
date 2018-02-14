@@ -1,27 +1,8 @@
-Welcome to the Glitch BETA
-=========================
+Welcome to the Gomix Template 2
+==============================
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+A starter project for learning Gomix.
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+THis is an Express.js project, designed to work well with the Gomix development environment. It includes basic express setup, templating, routing and session support.
 
-Find out more [about Glitch](https://glitch.com/about).
-
-
-Your Project
-------------
-
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Fog Creek](https://fogcreek.com/)
--------------------
-
-\ ゜o゜)ノ
+This template includes rudimentary user accounts + backed by a simple lowdb json database.
