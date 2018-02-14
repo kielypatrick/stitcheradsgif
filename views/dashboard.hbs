@@ -1,10 +1,32 @@
 {{> menu id="dashboard"}}
 
 <section class="ui segment">
-  <h1 class="ui heaader">
+  <h1 class="ui header">
     Welcome {{user.firstName}} {{user.lastName}}
   </h1>
-  <p>
-    Logged in Successfully!
-  </p>
+
+  <section class="ui raised segment">
+    <h1 class="ui header">
+      Your Pictures:
+    </h1>
+  </section>
+
+  <section class="ui raised segment">
+    <div class="ui small dividing header"> Picture Upload </div>
+    <section class="ui raised form segment">
+      <form action="/dashboard/uploadpicture" method="post" enctype="multipart/form-data">
+        <div class="two fields">
+          <div class="field">
+            <label>First Name</label>
+            <input type="file" name="picture">  </input>
+          </div>
+          <div class="field">
+            <label>Title</label>
+            <input placeholder="Title" type="text" name="title">
+          </div>
+        </div>
+        <button class="ui mini blue submit button"> Upload </button>
+      </form>
+    </section>
+  </section>
 </section>
