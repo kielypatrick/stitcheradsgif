@@ -6,9 +6,12 @@
   </h1>
 
   <section class="ui raised segment">
-    <h1 class="ui header">
+    <h3 class="ui header">
       Your Pictures:
-    </h1>
+    </h3>
+    {{#each album.photos}}
+      <img src="{{img}}">
+    {{/each}}
   </section>
 
   <section class="ui raised segment">
