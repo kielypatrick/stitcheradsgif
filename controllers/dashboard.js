@@ -24,7 +24,7 @@ const dashboard = {
     const loggedInUser = accounts.getCurrentUser(request);
     pictureStore.addPicture(loggedInUser.id, request.body.title, request.body.tag, request.files.picture, function () {
       response.redirect('/dashboard');
-      logger.info('uploading ' + response)
+      logger.info('uploading ' + request.body.tag)
       cloudinary.v2.uploader.add_tag(request.body.tag, request.id, function(result) { logger.info(result) });
 
     });
