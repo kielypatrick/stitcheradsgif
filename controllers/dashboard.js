@@ -9,8 +9,7 @@ const cloudinary = require('cloudinary');
 const dashboard = {
   index(request, response) {
     logger.info('dashboard rendering');
-    cloudinary.v2.uploader.multi('bitmoji',
-    function(error,result) {console.log(result) });
+    
     const loggedInUser = accounts.getCurrentUser(request);
     const viewData = {
       title: 'PictureStore Dashboard',
