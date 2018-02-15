@@ -25,7 +25,7 @@ const pictureStore = {
     
   },
 
-  addPicture(userId, title, imageFile, response) {
+  addPicture(userId, title, tag, imageFile, response) {
     let album = this.getAlbum(userId);
     if (!album) {
       album = {
@@ -43,6 +43,7 @@ const pictureStore = {
           const picture = {
             img: result.url,
             title: title,
+            tag: tag
           };
           album.photos.push(picture);
           this.store.save();
