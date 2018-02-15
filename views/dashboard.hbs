@@ -9,9 +9,11 @@
     <h3 class="ui header">
       Your Pictures:
     </h3>
-    {{#each album.photos}}
-      <img src="{{img}}">
-    {{/each}}
+    <div class="ui cards">
+      {{#each album.photos}}
+        {{> card }}
+      {{/each}}
+    </div>
   </section>
 
   <section class="ui raised segment">
