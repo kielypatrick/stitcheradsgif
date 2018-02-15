@@ -22,6 +22,8 @@ const pictureStore = {
 
   getAlbum(userid) {
     return this.store.findOneBy(this.collection, { userid: userid });
+    cloudinary.v2.uploader.multi('bitmoji',
+    function(error,result) {console.log(result) });
   },
 
   addPicture(userId, title, imageFile, response) {
