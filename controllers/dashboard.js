@@ -24,7 +24,7 @@ const dashboard = {
     const loggedInUser = accounts.getCurrentUser(request);
     pictureStore.addPicture(loggedInUser.id, request.body.title, request.body.tag, request.files.picture, function () {
       response.redirect('/dashboard');
-      logger.info('uploading picture:' + request.body.title)
+      logger.info('uploading picture:' + request.body.tag)
 
     });
   },
