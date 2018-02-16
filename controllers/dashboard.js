@@ -43,11 +43,11 @@ const dashboard = {
   
   createGif(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
-    pictureStore.addPicture(loggedInUser.id, request.body.title, request.body.tag, request.files.picture, function () {
+    cloudinary.v2.uploader.multi(request.body.tag,
+   function(error,result) {console.log(result) });
       response.redirect('/dashboard');
-      logger.info('uploading picture:' + request.body.title)
+      logger.info('creating gif:' + request.body.tag)
 
-    });
   },
   
   
