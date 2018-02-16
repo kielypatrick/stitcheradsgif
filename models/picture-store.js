@@ -45,6 +45,8 @@ const pictureStore = {
             title: title,
             tag: tag
           };
+        cloudinary.v2.uploader.add_tag(tag, result.public_id, function(result) { logger.info(result) });
+
           album.photos.push(picture);
           this.store.save();
           response();
