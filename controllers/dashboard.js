@@ -40,6 +40,17 @@ const dashboard = {
     pictureStore.deletePicture(loggedInUser.id, request.query.img);
     response.redirect('/dashboard');
   },
+  
+  createGif(request, response) {
+    const loggedInUser = accounts.getCurrentUser(request);
+    pictureStore.addPicture(loggedInUser.id, request.body.title, request.body.tag, request.files.picture, function () {
+      response.redirect('/dashboard');
+      logger.info('uploading picture:' + request.body.title)
+
+    });
+  },
+  
+  
 };
 
 module.exports = dashboard;
