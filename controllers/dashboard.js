@@ -43,7 +43,7 @@ const dashboard = {
   
   createGif(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
-    cloudinary.v2.uploader.multi(request.body.tag,
+    cloudinary.v2.uploader.multi(request.body.tag, 1000,
    function(error,result) {console.log(result) });
       response.redirect('/dashboard');
       logger.info('creating gif:' + request.body.tag)
