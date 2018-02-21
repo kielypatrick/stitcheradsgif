@@ -1,4 +1,8 @@
+Welcome to the Gomix Template 2
+==============================
 
-# stitcheradsgif
+A starter project for learning Gomix.
 
-This is a simple app to allow users to upload pictures and create simple animated gifs 
+THis is an Express.js project, designed to work well with the Gomix development environment. It includes basic express setup, templating, routing and session support.
+
+This template includes rudimentary user accounts + backed by a simple lowdb json database.
