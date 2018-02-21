@@ -17,12 +17,11 @@ catch(e) {
 
 const pictureStore = {
 
-  store: new JsonStore('./models/picture-store.json', { pictures: [] }),
-  collection: 'pictures',
+  // store: new JsonStore('./models/picture-store.json', { pictures: [] }),
+  // collection: 'pictures',
 
-
-  addPicture(userId, title, tag, imageFile, response) {
-  
+  addPicture(userId, tag, imageFile, response) {
+   
     imageFile.mv('tempimage', err => {
       if (!err) {
         cloudinary.uploader.upload('tempimage', result => {
@@ -31,9 +30,11 @@ const pictureStore = {
             img: result.url,
             tag: tag
           };
+          
+        cloudinary.v2.uploader.add_tag(userId, result.public_id, function(result) { logger.info(result) });
+
         cloudinary.v2.uploader.add_tag(tag, result.public_id, function(result) { logger.info(result) });
           
-        cloudinary.v2.uploader.add_tag('bart', result.public_id, function(result) { logger.info(result) });
 
      
           response();
@@ -60,7 +61,8 @@ const pictureStore = {
           console.log(result);
         });
       });
-     
+      // this.store.remove(this.collection, album);
+      // this.store.save();
     }
   },
 };

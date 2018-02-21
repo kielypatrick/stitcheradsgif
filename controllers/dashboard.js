@@ -15,9 +15,11 @@ const dashboard = {
             title: 'PictureStore Dashboard',
             user: loggedInUser,
         };
-        cloudinary.v2.api.resources(function(error, result){
+        cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
             // this is all only done when we have a response from cloudinary
             viewData.album =  result.resources
+            console.log('current user id : ', loggedInUser.id)
+
             console.log('all : ', viewData.album)
 
 
@@ -28,7 +30,11 @@ const dashboard = {
                 return cloudinary.v2.api.resource(image.public_id, function(error, imgResult){
                     //loaded our image tags
                     console.log('finished loading image tags')
+                  imgResult.tags.shift();
+                  console.log('tidied Image tags: ' + imgResult.tags);
                     return imgResult
+                  
+
                 }).then((res) =>{
                     //structure our images in a nice way
                     let image = {
@@ -49,7 +55,7 @@ const dashboard = {
 
     },
   
-  
+
   uploadPicture(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
     pictureStore.addPicture(loggedInUser.id, request.body.tag, request.files.picture, function () {
@@ -72,18 +78,16 @@ const dashboard = {
     response.redirect('/dashboard');
     response.reload(true)
 
-
   },
   
   createGif(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
-    cloudinary.v2.uploader.multi(request.body.tag, {delay: 3000},
+    cloudinary.v2.uploader.multi(loggedInUser.id, {delay: (request.body.delay * 1000)},
    function(error,result) {console.log(result) });
       response.redirect('/dashboard');
-      logger.info('creating gif:' + request.body.tag)
+      logger.info('creating gif:' + request.body.delay)
 
   },
-  
   
 };
 

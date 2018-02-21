@@ -31,7 +31,7 @@
             <input type="file" name="picture">  </input>
           </div>
         <div class="field">
-            <label>Tag</label>
+            <label>Title</label>
             <input placeholder="tag" type="text" name="tag">
           </div>
         </div>
@@ -45,11 +45,18 @@
       <form action="/dashboard/createGif" method="post" enctype="multipart/form-data">
           
         <div class="field">
-            <label>Tag</label>
-            <input placeholder="tag" type="text" name="tag">
+            <label>Interval</label>
+            <input placeholder="seconds on each image" type="range" min=".1" max="10"
+                   value="5" step=".1" onChange="sliderChange(this.value)" name="delay"/> 
+          <br />
+          Picture change after: <span id="sliderStatus">5</span> seconds
+            
+          <div>
+            
+          </div>
       
         </div>
-        <button class="ui mini green submit button"> Gif Me! </button>
+        <button class="ui large green submit button"> Gif Me! </button>
       </form>
     </section>
   </section>
