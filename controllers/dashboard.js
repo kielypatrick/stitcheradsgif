@@ -15,41 +15,41 @@ const dashboard = {
             title: 'PictureStore Dashboard',
             user: loggedInUser,
         };
-        //start of old stuff
         cloudinary.v2.api.resources(function(error, result){
             // this is all only done when we have a response from cloudinary
             viewData.album =  result.resources
-          //  console.log('all : ', viewData.album)
-
-      let images = viewData.album.map((image) => {
-      //  console.log('map : ', image)
-        // loop over each thing in album (temporarily called image) and return what we want
-        //which in this case is an object with a url and id want
-
-      cloudinary.v2.api.resource(image.public_id,function(error, result){
-        if (!error) {
-          console.log('tag 1 = ' + result.tags[1])
-       }});
+            console.log('all : ', viewData.album)
 
 
-        let newImage = {
-          img: image.url,
-          public_id: image.public_id,
-          created: image.created_at,
-          //tag: image.
-        }
-        console.log(newImage);
-        return newImage
+            // Using Promise.map:
+            //map over every image in our album and promise to return from cloudinary
+            Promise.map(viewData.album, function(image) {
+                //request to cloudinary for each of our images in the array
+                return cloudinary.v2.api.resource(image.public_id, function(error, imgResult){
+                    //loaded our image tags
+                    console.log('finished loading image tags')
+                    return imgResult
+                }).then((res) =>{
+                    //structure our images in a nice way
+                    let image = {
+                        img: res.url,
+                        public_id: res.public_id,
+                        tags: res.tags
+                    }
+                    return image
+                })
+            }).then(function(formattedImages){
+                //when all is done we render our view :)
+                viewData.album.image=formattedImages
+                response.render('dashboard', viewData);
+                logger.info('album ' + viewData.album[0].url);
+            });
 
-      })
-      viewData.album.image=images
-            response.render('dashboard', viewData);
-            logger.info('album ' + viewData.album[0].url);
         });
 
-
     },
-
+  
+  
   uploadPicture(request, response) {
     const loggedInUser = accounts.getCurrentUser(request);
     pictureStore.addPicture(loggedInUser.id, request.body.tag, request.files.picture, function () {
