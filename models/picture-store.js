@@ -2,9 +2,9 @@
 
 const _ = require('lodash');
 const JsonStore = require('./json-store');
-const cloudinary = require('cloudinary');
-const path = require('path');
-const logger = require('../utils/logger');
+ const cloudinary = require('cloudinary');
+ const path = require('path');
+ const logger = require('../utils/logger');
 
 try {
   const env = require('../.data/.env.json');
@@ -20,35 +20,22 @@ const pictureStore = {
   store: new JsonStore('./models/picture-store.json', { pictures: [] }),
   collection: 'pictures',
 
-  getAlbum(userid) {
-    return this.store.findOneBy(this.collection, { userid: userid });
-    
-  },
 
   addPicture(userId, title, tag, imageFile, response) {
-    let album = this.getAlbum(userId);
-    if (!album) {
-      album = {
-        userid: userId,
-        photos: [],
-      };
-      this.store.add(this.collection, album);
-      this.store.save();
-    }
-
+  
     imageFile.mv('tempimage', err => {
       if (!err) {
         cloudinary.uploader.upload('tempimage', result => {
           console.log(result);
           const picture = {
             img: result.url,
-            title: title,
             tag: tag
           };
         cloudinary.v2.uploader.add_tag(tag, result.public_id, function(result) { logger.info(result) });
+          
+        cloudinary.v2.uploader.add_tag('bart', result.public_id, function(result) { logger.info(result) });
 
-          album.photos.push(picture);
-          this.store.save();
+     
           response();
         });
       }
@@ -57,25 +44,23 @@ const pictureStore = {
 
   deletePicture(userId, image) {
     const id = path.parse(image);
-    let album = this.getAlbum(userId);
-    _.remove(album.photos, { img: image });
-    this.store.save();
+   console.log(id.name);
     cloudinary.api.delete_resources([id.name], function (result) {
       console.log(result);
     });
+
   },
 
-  deleteAllPictures(userId) {
-    let album = this.getAlbum(userId);
+   deleteAllPictures(userId) {
+    let album = this.getAlbum();
     if (album) {
-      album.photos.forEach(photo => {
-        const id = path.parse(photo.img);
+      album.forEach(image => {
+        const id = path.parse(image);
         cloudinary.api.delete_resources([id.name], result => {
           console.log(result);
         });
       });
-      this.store.remove(this.collection, album);
-      this.store.save();
+     
     }
   },
 };
