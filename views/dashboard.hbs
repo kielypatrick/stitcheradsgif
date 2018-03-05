@@ -12,6 +12,7 @@
     
     <div class="ui cards">
       {{#each album.image}}
+
         {{> card }}
       {{/each}}
     </div>
@@ -28,11 +29,11 @@
         <div class="two fields">
           <div class="field">
             <label>Image</label>
-            <input type="file" name="picture">  </input>
+            <input type="file" name="picture" required="required">  </input>
           </div>
         <div class="field">
-            <label>Tag</label>
-            <input placeholder="tag" type="text" name="tag">
+            <label>Title</label>
+            <input placeholder="..." type="text" name="tag">
           </div>
         </div>
         <button class="ui mini blue submit button"> Upload </button>
@@ -42,15 +43,61 @@
   <section class="ui raised segment">
     <div class="ui small dividing header"> Gif Create </div>
     <section class="ui raised form segment">
-      <form action="/dashboard/createGif" method="post" enctype="multipart/form-data">
           
         <div class="field">
-            <label>Tag</label>
-            <input placeholder="tag" type="text" name="tag">
-      
+            <label>Interval</label>
+         
+            <input style="width:400px" class="slider" type="range" min=".5" max="5"
+                   value="3" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
+          <br />
+           
+          Picture change after: <span id="sliderStatus">3</span> seconds
+          
         </div>
-        <button class="ui mini green submit button"> Gif Me! </button>
-      </form>
+        <div>
+         <ul class="bxslider">
+          {{#each album.image}}
+          <li><img src="{{split}}upload/l_zxycltaajhdangnzkyfu,w_0.4,c_scale,g_north_east{{split1}}" title="Blue Lizard"/></li>
+          {{/each}}
+         </ul>
+        </div>
+             <h2><a href="" id="reload-slider">RELOAD SETTINGS</a></h2>
+         <script>
+           var slider = $('.bxslider').bxSlider({
+                            mode: 'horizontal',
+                            moveSlides: 1,
+                            slideMargin: 40,
+                            infiniteLoop: true,
+                            slideWidth: 660,
+                            minSlides: 1,
+                            maxSlides: 1,
+                            pause: 3000,
+                            speed: 3000,
+                            auto: true,
+                        });
+           
+           function sliderChange(val){
+                    document.getElementById('sliderStatus').innerHTML = val;
+                      console.log(val + " slider value");
+                      delay = val;
+                      
+                }
+                  
+           $('#reload-slider').click(function(e){
+           e.preventDefault();
+           slider.reloadSlider({
+            mode: 'horizontal',
+            auto: true,
+            slideWidth: 660,
+            captions: true,
+            pause: delay*1000
+
+           });
+     });
+      </script>
+
     </section>
   </section>
+ 
+
 </section>

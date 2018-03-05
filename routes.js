@@ -24,5 +24,4 @@ router.get('/dashboard/deletepicture', dashboard.deletePicture);
 router.post('/dashboard/createGif', dashboard.createGif);
 
 
-
 module.exports = router;
