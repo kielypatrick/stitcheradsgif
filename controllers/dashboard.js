@@ -1,3 +1,4 @@
+
 'use strict';
 
 const logger = require('../utils/logger');
@@ -5,6 +6,7 @@ const accounts = require('./accounts.js');
 const pictureStore = require('../models/picture-store.js');
 const cloudinary = require('cloudinary');
 var Promise = require("bluebird");
+
 const viewData = {
     title: 'PictureStore Dashboard',
 };
@@ -20,7 +22,7 @@ const dashboard = {
       viewData.album =  result.resources
       console.log('current user id : ', loggedInUser.id)
 
-      //      console.log('all : ', viewData.album)
+      //     console.log('all : ', viewData.album)
 
 
       // Using Promise.map:
@@ -30,12 +32,12 @@ const dashboard = {
       return cloudinary.v2.api.resource(image.public_id, function(error, imgResult){
       //loaded our image tags
       //          console.log('finished loading image tags')
-      imgResult.tags.shift();
-      imgResult.split = imgResult.url.split("upload");
-      console.log('img link: ' + imgResult.split[0] + 'upload' + imgResult.split[1]);
-
-      return imgResult
-
+      if (viewData.album){
+        imgResult.tags.shift();
+        imgResult.split = imgResult.url.split("upload");
+     //   console.log('img link: ' + imgResult.split[0] + 'upload' + imgResult.split[1]);
+        return imgResult
+      }
 
       }).then((res) =>{
           //structure our images in a nice way
@@ -54,16 +56,18 @@ const dashboard = {
           //when all is done we render our view :)
           viewData.album.image=formattedImages
           response.render('dashboard', viewData);
-          logger.info('album ' + viewData.album[0].url);
-
+         
+            });
       });
+    },
+                                         
+                                         
 
-    });
-
-  },
+  
 
 
     uploadPicture(request, response) {
+      
       const loggedInUser = accounts.getCurrentUser(request);
       pictureStore.addPicture(loggedInUser.id, request.body.tag, request.files.picture, function () {
       response.redirect('/dashboard');
@@ -83,7 +87,6 @@ const dashboard = {
       pictureStore.deletePicture(loggedInUser.id, request.query.img);
 
       response.redirect('/dashboard');
-      response.reload(true)
 
   },
 
@@ -96,12 +99,10 @@ const dashboard = {
       console.log('gif is at ' + viewData.gif);
     });
 
-
-      response.redirect('/dashboard');
-      logger.info('creating gif:' + request.body.delay)
-
   },
 
 };
+
+
 
 module.exports = dashboard;
