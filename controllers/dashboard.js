@@ -22,7 +22,7 @@ const dashboard = {
       viewData.album =  result.resources
       console.log('current user id : ', loggedInUser.id)
 
-      //     console.log('all : ', viewData.album)
+          // console.log('all : ', viewData.album)
 
 
       // Using Promise.map:
@@ -33,10 +33,22 @@ const dashboard = {
       //loaded our image tags
       //          console.log('finished loading image tags')
       if (viewData.album){
+        
+
         imgResult.tags.shift();
+        if (imgResult.tags == 'logo') {
+            
+            viewData.logo = imgResult.public_id;
+            console.log('logo: ' + viewData.logo);
+
+            }
+        
         imgResult.split = imgResult.url.split("upload");
-     //   console.log('img link: ' + imgResult.split[0] + 'upload' + imgResult.split[1]);
+       // console.log('img link: ' + imgResult.split[0] + 'upload' + imgResult.split[1]);
+      console.log('img tags: ' + imgResult.tags);
+
         return imgResult
+        
       }
 
       }).then((res) =>{
@@ -46,8 +58,8 @@ const dashboard = {
           public_id: res.public_id,
           tags: res.tags,
           split: res.split[0],
-          split1: res.split[1]
-
+          split1: res.split[1],
+          logo: viewData.logo
 
       }
           return image
@@ -59,13 +71,12 @@ const dashboard = {
          
             });
       });
+      
+     
+       
     },
                                          
-                                         
-
-  
-
-
+                                    
     uploadPicture(request, response) {
       
       const loggedInUser = accounts.getCurrentUser(request);
