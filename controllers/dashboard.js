@@ -6,10 +6,13 @@ const accounts = require('./accounts.js');
 const pictureStore = require('../models/picture-store.js');
 const cloudinary = require('cloudinary');
 var Promise = require("bluebird");
+const Handlebars = require('handlebars');
+
 
 const viewData = {
     title: 'PictureStore Dashboard',
 };
+
 const dashboard = {
 
     index(request, response) {
@@ -22,8 +25,7 @@ const dashboard = {
       viewData.album =  result.resources
       console.log('current user id : ', loggedInUser.id)
 
-          // console.log('all : ', viewData.album)
-
+      // console.log('all : ', viewData.album)
 
       // Using Promise.map:
       //map over every image in our album and promise to return from cloudinary
@@ -33,19 +35,21 @@ const dashboard = {
       //loaded our image tags
       //          console.log('finished loading image tags')
       if (viewData.album){
-        
+        console.log("photos" + viewData.album.length)
 
         imgResult.tags.shift();
         if (imgResult.tags == 'logo') {
             
             viewData.logo = imgResult.public_id;
+            viewData.logoUrl = imgResult.url;
             console.log('logo: ' + viewData.logo);
-
             }
         
+        // console.log("photos" + viewData.album.length)
+
         imgResult.split = imgResult.url.split("upload");
        // console.log('img link: ' + imgResult.split[0] + 'upload' + imgResult.split[1]);
-      console.log('img tags: ' + imgResult.tags);
+        console.log('img tags: ' + imgResult.tags);
 
         return imgResult
         
@@ -60,22 +64,28 @@ const dashboard = {
           split: res.split[0],
           split1: res.split[1],
           logo: viewData.logo
-
       }
           return image
       })
       }).then(function(formattedImages){
           //when all is done we render our view :)
+        
           viewData.album.image=formattedImages
-          response.render('dashboard', viewData);
-         
-            });
+          console.log(formattedImages.length)
+        let i
+        for (i = 0; i < formattedImages.length; i++){
+          // console.log(viewData.album[i].public_id)
+
+          if (formattedImages[i].public_id == viewData.logo){
+           formattedImages.splice(i, 1); 
+          }
+        }        
+        console.log(formattedImages);    
+        response.render('dashboard', viewData);         
+        });
       });
-      
-     
-       
-    },
-                                         
+            
+    },                                         
                                     
     uploadPicture(request, response) {
       
@@ -113,7 +123,5 @@ const dashboard = {
   },
 
 };
-
-
 
 module.exports = dashboard;

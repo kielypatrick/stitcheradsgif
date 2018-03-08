@@ -20,11 +20,31 @@ catch(e) {
 const pictureStore = {
 
   addPicture(userId, tag, imageFile, response) {
-   
+
+    cloudinary.v2.api.resources_by_tag(userId, function(error, result){
+      let album =  result.resources
+      Promise.map(album, function(image) {
+      //request to cloudinary for each of our images in the array
+      return cloudinary.v2.api.resource(image.public_id, function(error, imgResult){
+        
+          imgResult.tags.shift();
+
+          console.log('Promise Returns : ', imgResult.tags);
+
+          if (imgResult.tags == 'logo'){
+            cloudinary.api.delete_resources(imgResult.public_id, function (result) {
+            console.log(result);
+            });
+          }
+
+          });
+        });
+      });
+
     imageFile.mv('tempimage', err => {
       if (!err) {
         cloudinary.uploader.upload('tempimage', result => {
-          console.log(result);
+          console.log("...." , result);
           const picture = {
             img: result.url,
             tag: tag
@@ -60,9 +80,8 @@ const pictureStore = {
       Promise.map(album, function(image) {
       //request to cloudinary for each of our images in the array
       return cloudinary.v2.api.delete_resources(image.public_id, function(error, imgResult){
-     //   album.forEach(public_id => {
-     //    cloudinary.api.delete_resources([public_id], result => {
-     //      console.log(result);
+    
+          console.log(result);
          });
       });
     });

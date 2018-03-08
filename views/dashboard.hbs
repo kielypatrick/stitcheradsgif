@@ -2,7 +2,7 @@
 
 <section class="ui segment">
   <h1 class="ui header">
-    Welcome {{user.firstName}} {{user.lastName}}{{logo}}{{logo}}
+    Welcome {{user.firstName}} {{user.lastName}}
   </h1>
 
   <section class="ui raised segment">
@@ -20,6 +20,12 @@
   
   <div class="ui segment">
     <a href="/dashboard/deleteallpictures"> <button class="negative ui button">Delete All</button></a>
+  </div>
+  
+  <div class="ui segment">
+    <div class="ui small dividing header"> Current Logo </div>
+
+    <img src="{{logoUrl}}">
   </div>
 
   <section class="ui raised segment">
@@ -56,20 +62,29 @@
         </div>
         <div>
          <ul class="bxslider">
+           
           {{#each album.image}}
-            <li><img src="{{split}}upload/w_0.9,c_crop,g_auto/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
-            <li><img src="{{split}}upload/w_0.92,c_crop,g_auto/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/w_0.9,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/w_0.91,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            
+            <li><img src="{{split}}upload/w_0.92,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/w_0.93,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
 
-            <li><img src="{{split}}upload/w_0.94,c_crop,g_auto/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
-            <li><img src="{{split}}upload/w_0.96,c_crop,g_auto/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/w_0.94,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/w_0.95,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            
+            <li><img src="{{split}}upload/w_0.96,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
 
             <li><img src="{{split}}upload{{split1}}" title="Blue Lizard"/></li>
           
-            <li><img src="{{split}}upload/l_{{logo}},w_0.4,c_scale,g_face{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/l_{{logo}},w_0.4,c_scale,g_north_east{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/l_{{logo}},w_0.4,c_scale,g_north_east{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/l_{{logo}},w_0.4,c_scale,g_north_east{{split1}}" title="Blue Lizard"/></li>
           {{/each}}
          </ul>
         </div>
              <h2><a href="" id="reload-slider">RELOAD SETTINGS</a></h2>
+      
          <script>
            var slider = $('.bxslider').bxSlider({
                             mode: 'fade',
@@ -79,7 +94,7 @@
                             slideWidth: 660,
                             minSlides: 1,
                             maxSlides: 1,
-                            pause: 1000,
+                            pause: 200,
                             speed: 1,
                             auto: true,
                         });
