@@ -27,6 +27,20 @@
       "email": "bart@simpson.com",
       "password": "secret",
       "id": "96efbd00-0450-4820-a4ae-dcdae61e882a"
+    },
+    {
+      "firstName": "ian",
+      "lastName": "ronan",
+      "email": "ian.ronan@stitcherads.com",
+      "password": "secret",
+      "id": "f48e0dc6-d1f3-473f-9666-a96bcd1710e0"
+    },
+    {
+      "firstName": "test",
+      "lastName": "testy",
+      "email": "test@test.com",
+      "password": "secret",
+      "id": "c5ec36de-d0e4-4f1b-b405-895ecd7f35c0"
     }
   ]
 }

@@ -26,6 +26,7 @@
     <div class="ui small dividing header"> Current Logo </div>
 
     <img src="{{logoUrl}}">
+
   </div>
 
   <section class="ui raised segment">
@@ -51,35 +52,40 @@
     <section class="ui raised form segment">
           
         <div class="field">
-            <label>Interval</label>
+            <label>Speed</label>
          
             <input style="width:400px" class="slider" type="range" min=".5" max="5"
-                   value="1" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
-          <br />
+                   value="2" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
+          
            
-          Picture change after: <span id="sliderStatus">1</span> seconds
+          Picture change after: <span id="sliderStatus">2</span> seconds
           
         </div>
         <div>
          <ul class="bxslider">
            
           {{#each album.image}}
-            <li><img src="{{split}}upload/w_0.9,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
-            <li><img src="{{split}}upload/w_0.91,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
-            
-            <li><img src="{{split}}upload/w_0.92,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
-            <li><img src="{{split}}upload/w_0.93,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_40/w_0.9,c_crop,g_center/w_iw,h_ih,a_-20,b_green{{split1}}" title="Blue Lizard1"/></li>
 
-            <li><img src="{{split}}upload/w_0.94,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
-            <li><img src="{{split}}upload/w_0.95,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_40/w_0.91,c_crop,g_center/w_iw,h_ih,a_-18{{split1}}" title="Blue Lizard2"/></li>
             
-            <li><img src="{{split}}upload/w_0.96,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
-
-            <li><img src="{{split}}upload{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_40/w_0.92,c_crop,g_center/w_iw,h_ih,a_-16{{split1}}" title="Blue Lizard3"/></li>
           
-            <li><img src="{{split}}upload/l_{{logo}},w_0.4,c_scale,g_north_east{{split1}}" title="Blue Lizard"/></li>
-            <li><img src="{{split}}upload/l_{{logo}},w_0.4,c_scale,g_north_east{{split1}}" title="Blue Lizard"/></li>
-            <li><img src="{{split}}upload/l_{{logo}},w_0.4,c_scale,g_north_east{{split1}}" title="Blue Lizard"/></li>
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_40/w_0.93,c_crop,g_center/w_iw,h_ih,a_-14{{split1}}" title="Blue Lizard4"/></li>
+
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_40/w_0.94,c_crop,g_center/w_iw,h_ih,a_-12{{split1}}" title="Blue Lizard5"/></li>
+          
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_40/w_0.95,c_crop,g_center/w_iw,h_ih,a_-10{{split1}}" title="Blue Lizard6"/></li>
+            
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_40/w_0.96,c_crop,g_center/w_iw,h_ih,a_-8{{split1}}" title="Blue Lizard7"/></li>
+           
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_60/w_0.97,c_crop,g_center/w_iw,h_ih,a_-6{{split1}}" title="Blue Lizard8"/></li>
+           
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih,a_-4/l_text:Arial_44_bold:£95.00,co_rgb:fff,g_north_west,a_-30,x_45,y_50{{split1}}" title="Blue Lizard9"/></li>
+           
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_80/w_0.99,c_crop,g_center/w_iw,h_ih,a_-2/l_text:Arial_44_bold:£95.00,co_rgb:fff,g_north_west,a_-30,x_45,y_50{{split1}}" title="Blue Lizard10"/></li>
+
+            <li><img src="{{split}}upload/l_{{logo}},w_200,c_scale,g_north_east,o_80/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
           {{/each}}
          </ul>
         </div>
@@ -91,10 +97,11 @@
                             moveSlides: 1,
                             slideMargin: 40,
                             infiniteLoop: true,
-                            slideWidth: 660,
+                            slideWidth: 400,
                             minSlides: 1,
                             maxSlides: 1,
                             pause: 200,
+                            pager: false,
                             speed: 1,
                             auto: true,
                         });
@@ -105,15 +112,15 @@
                       delay = val;
                       
                 }
-                  
            $('#reload-slider').click(function(e){
            e.preventDefault();
            slider.reloadSlider({
-            mode: 'horizontal',
+            mode: 'fade',
             auto: true,
-            slideWidth: 660,
-            captions: true,
-            pause: delay*1000
+            slideWidth: 400,
+            speed: 1,
+            pager: false,
+            pause: delay*100
 
            });
      });

@@ -20,12 +20,16 @@ const dashboard = {
 
       const loggedInUser = accounts.getCurrentUser(request);
       viewData.user = loggedInUser;
+      viewData.logoUrl = "http://res.cloudinary.com/patrick86/image/upload/tempLogo.png";
+      viewData.logo = "tempLogo.png";
+
       cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
       // this is all only done when we have a response from cloudinary
       viewData.album =  result.resources
       console.log('current user id : ', loggedInUser.id)
 
       // console.log('all : ', viewData.album)
+      console.log("photos" + viewData.album.length)
 
       // Using Promise.map:
       //map over every image in our album and promise to return from cloudinary
@@ -35,9 +39,9 @@ const dashboard = {
       //loaded our image tags
       //          console.log('finished loading image tags')
       if (viewData.album){
-        console.log("photos" + viewData.album.length)
 
         imgResult.tags.shift();
+
         if (imgResult.tags == 'logo') {
             
             viewData.logo = imgResult.public_id;
@@ -56,6 +60,9 @@ const dashboard = {
       }
 
       }).then((res) =>{
+        
+                console.log('img WIT: ' + res.width);
+
           //structure our images in a nice way
           let image = {
           img: res.url,
@@ -64,6 +71,7 @@ const dashboard = {
           split: res.split[0],
           split1: res.split[1],
           logo: viewData.logo
+            
       }
           return image
       })
@@ -71,20 +79,24 @@ const dashboard = {
           //when all is done we render our view :)
         
           viewData.album.image=formattedImages
-          console.log(formattedImages.length)
+          console.log("Total Images " + formattedImages.length)
         let i
         for (i = 0; i < formattedImages.length; i++){
-          // console.log(viewData.album[i].public_id)
+        //  console.log(viewData.album.image)
 
           if (formattedImages[i].public_id == viewData.logo){
            formattedImages.splice(i, 1); 
           }
-        }        
-        console.log(formattedImages);    
+          //seperate the logo image from the album
+        }      
+
+        console.log("All Images... ");  
+       console.log(formattedImages);    
+        console.log(viewData.logoUrl);
         response.render('dashboard', viewData);         
         });
       });
-            
+     
     },                                         
                                     
     uploadPicture(request, response) {
@@ -92,9 +104,10 @@ const dashboard = {
       const loggedInUser = accounts.getCurrentUser(request);
       pictureStore.addPicture(loggedInUser.id, request.body.tag, request.files.picture, function () {
       response.redirect('/dashboard');
-      logger.info('uploading picture:' + request.body.tag)
+      logger.info('uploading picture: ' + request.body.tag)
 
     });
+      
   },
 
     deleteAllPictures(request, response) {
