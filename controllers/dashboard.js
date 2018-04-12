@@ -20,7 +20,8 @@ const dashboard = {
 
       const loggedInUser = accounts.getCurrentUser(request);
       viewData.user = loggedInUser;
-      viewData.logoUrl = "http://res.cloudinary.com/patrick86/image/upload/tempLogo.png";
+      //Put in a link to a default blank logo for the user
+      viewData.logoUrl = "http://res.cloudinary.com/patrick86/image/upload/w_iw,h_20/tempLogo.png";
       viewData.logo = "tempLogo.png";
 
       cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
@@ -61,7 +62,8 @@ const dashboard = {
 
       }).then((res) =>{
         
-                console.log('img WIT: ' + res.width);
+        //console.log('img WIT: ' + res.width);
+        let logoWidth = Math.floor(res.width/6);
 
           //structure our images in a nice way
           let image = {
@@ -70,9 +72,13 @@ const dashboard = {
           tags: res.tags,
           split: res.split[0],
           split1: res.split[1],
-          logo: viewData.logo
+          logo: viewData.logo,
+          logoWidth: logoWidth
             
       }
+                console.log('logo WIT: ' + image.logoWidth);
+        
+
           return image
       })
       }).then(function(formattedImages){
@@ -91,7 +97,8 @@ const dashboard = {
         }      
 
         console.log("All Images... ");  
-       console.log(formattedImages);    
+        console.log(formattedImages);  
+        console.log("current user logo is at");  
         console.log(viewData.logoUrl);
         response.render('dashboard', viewData);         
         });
