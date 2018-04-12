@@ -54,16 +54,24 @@ const pictureStore = {
     imageFile.mv('tempimage', err => {
       if (!err) {
         cloudinary.uploader.upload('tempimage', result => {
-          console.log("...." , result.public_id);
+          console.log("upload pending for" , result.public_id);
           const picture = {
             img: result.url,
             tag: tag
           };
-    // add tag with user ID for retrieval of users photos
-        cloudinary.v2.uploader.add_tag(userId, result.public_id, function(result) { logger.info('adding', result) });
-    // add user inputted tag
-        cloudinary.v2.uploader.add_tag(tag, result.public_id, function(result) { logger.info('tags', result) });
+          console.log(">>>>" + tag);
           
+    // add tag with user ID for retrieval of users photos
+        cloudinary.v2.uploader.add_tag(userId, result.public_id, function(result) { logger.info('added tag ' + userId + ' to image' + tag, result) });
+    // add user inputted tag
+        if (tag == ''){ 
+          cloudinary.v2.uploader.add_tag(tag, result.public_id, function(result) { logger.info('added tag ' + tag + ' to image', result) });
+        }
+        else {
+          console.log("no tag");
+          
+          cloudinary.v2.uploader.add_tag('tag', result.public_id, function(result) { logger.info('added tag . to image', result) });
+        }
 
           
 //         if (tag !='logo') {
@@ -102,17 +110,19 @@ const pictureStore = {
      
   },
 
-  deletePicture(userId, image) {
+  deletePicture(userId, image, resp) {
     const id = path.parse(image);
     console.log('You have deleted the following image..');
     console.log(id.name);
     cloudinary.api.delete_resources([id.name], function (result) {
       console.log(result);
+      resp.redirect('/dashboard');
+      //redirect moved into the cloudinary call to make sure the delete completes first
     });
 
   },
 
-   deleteAllPictures(userId) {
+   deleteAllPictures(userId, resp) {
     cloudinary.v2.api.resources_by_tag(userId, function(error, result){
       let album =  result.resources
       console.log(album[0].public_id + "deleting stuff");
@@ -122,10 +132,14 @@ const pictureStore = {
       Promise.map(album, function(image) {
       //request to cloudinary for each of our images in the array
       return cloudinary.v2.api.delete_resources(image.public_id, function(error, imgResult){
-    
         console.log(result);
         });
-      });
+      })
+      .then(() => {
+        resp.redirect('/dashboard');
+        //redirect tied to the map iterating over the images make sure all deletions complete first
+
+      })
     });
       
   },
