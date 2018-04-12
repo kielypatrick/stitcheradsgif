@@ -119,15 +119,13 @@ const dashboard = {
 
     deleteAllPictures(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
-      pictureStore.deleteAllPictures(loggedInUser.id);
-      response.redirect('/dashboard');
+      pictureStore.deleteAllPictures(loggedInUser.id, response);
+      // response.redirect('/dashboard');
   },
 
     deletePicture(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
-      pictureStore.deletePicture(loggedInUser.id, request.query.img);
-
-      response.redirect('/dashboard');
+      pictureStore.deletePicture(loggedInUser.id, request.query.img, response);
 
   },
 
