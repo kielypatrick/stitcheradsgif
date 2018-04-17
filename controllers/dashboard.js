@@ -13,6 +13,8 @@ const viewData = {
     title: 'PictureStore Dashboard',
 };
 
+
+
 const dashboard = {
 
     index(request, response) {
@@ -64,6 +66,7 @@ const dashboard = {
         
         //console.log('img WIT: ' + res.width);
         let logoWidth = Math.floor(res.width/6);
+        let textHeight = Math.floor(logoWidth/3);
 
           //structure our images in a nice way
           let image = {
@@ -73,6 +76,7 @@ const dashboard = {
           split: res.split[0],
           split1: res.split[1],
           logo: viewData.logo,
+          textHeight: textHeight,
           logoWidth: logoWidth
             
       }

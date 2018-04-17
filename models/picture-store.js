@@ -62,16 +62,22 @@ const pictureStore = {
           console.log(">>>>" + tag);
           
     // add tag with user ID for retrieval of users photos
-        cloudinary.v2.uploader.add_tag(userId, result.public_id, function(result) { logger.info('added tag ' + userId + ' to image' + tag, result) });
-    // add user inputted tag
-        if (tag == ''){ 
-          cloudinary.v2.uploader.add_tag(tag, result.public_id, function(result) { logger.info('added tag ' + tag + ' to image', result) });
-        }
-        else {
-          console.log("no tag");
+        cloudinary.v2.uploader.add_tag(userId, result.public_id, function(res) { 
+          logger.info('added tag ' + userId + ' to image ' + tag, res) 
+          cloudinary.v2.uploader.add_tag(tag, result.public_id, function(res2) { 
+            logger.info('added tag ' + tag + ' to image', res2) });
           
-          cloudinary.v2.uploader.add_tag('tag', result.public_id, function(result) { logger.info('added tag . to image', result) });
-        }
+//Change made here to ensure that the userId tag is the first tag, so that it can be removed later for dispay purposes
+
+        });
+    // add user inputted tag
+        //if (tag == ''){ 
+      //  }
+//         else {
+//           console.log("no tag");
+          
+//           cloudinary.v2.uploader.add_tag('tag', result.public_id, function(result) { logger.info('added tag . to image', result) });
+//         }
 
           
 //         if (tag !='logo') {

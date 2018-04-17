@@ -50,9 +50,18 @@
   <section class="ui raised segment">
     <div class="ui small dividing header"> Gif Create </div>
     <section class="ui raised form segment">
+      
+      <h2>Transition choice</h2>
+
+<form>
+  <input type="radio" name="transition" value="zoom" checked> Zoom<br>
+  <input type="radio" name="transition" value="rotatingZoom" checked> Rotating Zoom<br>
+  <input type="radio" name="transition" value="fade"> Slow Fade<br>
+  <input type="radio" name="transition" value="slide"> Slide  
+</form> 
           
         <div class="field">
-            <label>Speed</label>
+            <h2>Speed</h2>
          
             <input style="width:400px" class="slider" type="range" min=".5" max="5"
                    value="2" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
@@ -80,12 +89,27 @@
             <li><img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.96,c_crop,g_center/w_iw,h_ih,a_-8{{split1}}" title="Blue Lizard7"/></li>
            
             <li><img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_60/w_0.97,c_crop,g_center/w_iw,h_ih,a_-6{{split1}}" title="Blue Lizard8"/></li>
-           
-            <li><img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih,a_-4/l_text:Arial_44_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_50{{split1}}" title="Blue Lizard9"/></li>
-           
-            <li><img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_0.99,c_crop,g_center/w_iw,h_ih,a_-2/l_text:Arial_44_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_50{{split1}}" title="Blue Lizard10"/></li>
+            {{#if tags }}
 
-            <li><img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_iw,h_ih{{split1}}" title="Blue Lizard"/></li>
+            <li>
+              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih,a_-4/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:000,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard9"/>
+            <li>
+              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_0.99,c_crop,g_center/w_iw,h_ih,a_-2/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard10"/></li>
+            <li>
+              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard"/></li>
+
+           {{else}}
+            <li>
+              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih,a_-4{{split1}}" title="Blue Lizard9"/>
+            </li>
+           <li>
+              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih,a_-2{{split1}}" title="Blue Lizard9"/>
+            </li>
+           <li>
+              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard9"/>
+            </li>
+            {{/if}}
+
           {{/each}}
          </ul>
         </div>
@@ -124,6 +148,7 @@
 
            });
      });
+           
       </script>
 
     </section>
