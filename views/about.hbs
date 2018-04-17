@@ -10,4 +10,64 @@
   <p>
   View your <strong>gif!</strong> 
   </p>
+  
+   
 </section>
+
+<div class="container">
+
+            <h3>How to</h3>
+            
+  <p>An example demonstrating the use of the <code>&lt;input type="color"&gt;</code>
+   control.</p>
+
+<label for="colorWell">Colour:</label>
+<input type="color" value="#ff0000" id="colorWell">
+
+<p>Watch the paragraph colors change when you adjust the color picker.
+   As you make changes in the color picker, the first paragraph's
+   color changes, as a preview (this uses the <code>input</code>
+   event). When you close the color picker, the <code>change</code>
+   event fires, and we detect that to change every paragraph to
+   the selected color.</p>
+  
+  Colour change to <span id="newColor">2</span>
+
+  <script>
+    var colorWell;
+    var defaultColor = "#0000ff";
+
+    window.addEventListener("load", startup, false);
+    
+    function startup() {
+      colorWell = document.querySelector("#colorWell");
+      colorWell.value = defaultColor;
+      colorWell.addEventListener("input", updateFirst, false);
+      colorWell.addEventListener("change", updateAll, false);
+      colorWell.select();
+    }
+    
+    function updateFirst(event) {
+      var p = document.querySelector("p");
+
+      if (p) {
+        p.style.color = event.target.value;
+        console.log(event.target.value);
+        colorChange(event)
+      }
+    }
+    
+    function updateAll(event) {
+      document.querySelectorAll("p").forEach(function(p) {
+        p.style.color = event.target.value;
+
+      });
+    }
+    
+   function colorChange(event) {
+      document.getElementById('newColor').innerHTML = event.target.value;
+    }
+
+    
+  </script>
+        </div>
