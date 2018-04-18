@@ -7,26 +7,14 @@
 
 </form> 
       
-      <script>
-        
-        function checkbox(tab) {
-            var transition = tab;
-            console.log(transition);
-        }
-
-      </script>
-      
       <h2>Transition choice {{transition}}</h2>
-
-     
 
       <div class="field">
           <h2>Speed</h2>
          
           <input style="width:400px" class="slider" type="range" min=".5" max="5"
                    value="2" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
-          
-           
+                     
           Picture change after: <span id="sliderStatus">2</span> seconds
           
         </div>
