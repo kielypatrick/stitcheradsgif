@@ -13,7 +13,9 @@ const viewData = {
     title: 'PictureStore Dashboard',
 };
 
-
+Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
 
 const dashboard = {
 
@@ -25,6 +27,7 @@ const dashboard = {
       //Put in a link to a default blank logo for the user
       viewData.logoUrl = "http://res.cloudinary.com/patrick86/image/upload/w_iw,h_20/tempLogo.png";
       viewData.logo = "tempLogo.png";
+      viewData.transition = "rZoom";
 
       cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
       // this is all only done when we have a response from cloudinary
@@ -104,6 +107,8 @@ const dashboard = {
         console.log(formattedImages);  
         console.log("current user logo is at");  
         console.log(viewData.logoUrl);
+        console.log(viewData.transition);
+
         response.render('dashboard', viewData);         
         });
       });
@@ -143,6 +148,41 @@ const dashboard = {
     });
 
   },
+  
+    checkBox(request, response){
+      viewData.transition = request.query.value;
+      if (request.query.value == 'zoom')
+      {
+        viewData.transition = request.query.value
+      }
+      else if (request.query.value == 'rZoom')
+      {
+        viewData.transition = request.query.value
+      }
+      else if (request.query.value == 'fade')
+      {
+        viewData.transition = request.query.value
+      }
+      else 
+      {
+        viewData.transition = 'slide'
+      }
+      
+      
+
+      console.log(request.query);
+
+      console.log(request.query.value);
+     
+      // setInterval()
+      response.render('dashboard', viewData);         
+      
+    },
+  
+      // setInterval() {
+      // $( "#preview" ).load( "views/partials/card.hbs", function() {
+      //   alert( "Load was performed." );
+      // });        },
 
 };
 
