@@ -70,43 +70,6 @@ const pictureStore = {
 //Change made here to ensure that the userId tag is the first tag, so that it can be removed later for dispay purposes
 
         });
-    // add user inputted tag
-        //if (tag == ''){ 
-      //  }
-//         else {
-//           console.log("no tag");
-          
-//           cloudinary.v2.uploader.add_tag('tag', result.public_id, function(result) { logger.info('added tag . to image', result) });
-//         }
-
-          
-//         if (tag !='logo') {
-          
-          // cloudinary.v2.uploader.upload('tempimage', {public_id: result.public_id +"2",
-          // width: .6, crop: "crop", gravity: "center",
-          // })
-//           cloudinary.v2.uploader.upload('tempimage', {public_id: result.public_id +"3",
-//           width: .7, crop: "crop", gravity: "center",
-//           })
-//           cloudinary.v2.uploader.upload('tempimage', {public_id: result.public_id +"4",
-//           width: .8, crop: "crop", gravity: "center",
-//           })
-//           cloudinary.v2.uploader.upload('tempimage', {public_id: result.public_id +"5",
-//           width: .9, crop: "crop", gravity: "center",
-//           })
-                 
-        // cloudinary.v2.uploader.add_tag(userId + tag, result.public_id + "1", function(result) { logger.info(result) });
-        // cloudinary.v2.uploader.add_tag(userId + tag, result.public_id + "2", function(result) { logger.info(result) });
-//         cloudinary.v2.uploader.add_tag(userId + tag, result.public_id + "3", function(result) { logger.info(result) });
-//         cloudinary.v2.uploader.add_tag(userId + tag, result.public_id + "4", function(result) { logger.info(result) });
-//         cloudinary.v2.uploader.add_tag(userId + tag, result.public_id + "5", function(result) { logger.info(result) });
-
-//         cloudinary.v2.uploader.multi(userId + tag, {delay: (2000)},
-//       function(error,result) {
-//       console.log('gif is at ' + result);
-//     });
-
-//         }
                                       
         response();
         });
@@ -116,13 +79,20 @@ const pictureStore = {
      
   },
 
-  deletePicture(userId, image, resp) {
+  deletePicture(userId, image, resp, viewData) {
     const id = path.parse(image);
     console.log('You have deleted the following image..');
     console.log(id.name);
     cloudinary.api.delete_resources([id.name], function (result) {
       console.log(result);
+            console.log("current transition >>>>>>>>> " + viewData.transition );
+      
       resp.redirect('/dashboard');
+
+
+     // pictureStore.newDashboard(viewData, resp);
+      // resp.render('dashboard', viewData);         
+
       //redirect moved into the cloudinary call to make sure the delete completes first
     });
 
@@ -149,6 +119,7 @@ const pictureStore = {
     });
       
   },
+  
 };
 
 module.exports = pictureStore;

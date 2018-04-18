@@ -27,8 +27,10 @@ const dashboard = {
       //Put in a link to a default blank logo for the user
       viewData.logoUrl = "http://res.cloudinary.com/patrick86/image/upload/w_iw,h_20/tempLogo.png";
       viewData.logo = "tempLogo.png";
-      viewData.transition = "rZoom";
-
+      if (viewData.transition === undefined){
+        viewData.transition = "rZoom";
+      }
+      //if statement above to make sure we stay on the same transition mode after upload or delete
       cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
       // this is all only done when we have a response from cloudinary
       viewData.album =  result.resources
@@ -129,12 +131,11 @@ const dashboard = {
     deleteAllPictures(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
       pictureStore.deleteAllPictures(loggedInUser.id, response);
-      // response.redirect('/dashboard');
   },
 
     deletePicture(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
-      pictureStore.deletePicture(loggedInUser.id, request.query.img, response);
+      pictureStore.deletePicture(loggedInUser.id, request.query.img, response, viewData);
 
   },
 
@@ -167,8 +168,7 @@ const dashboard = {
       {
         viewData.transition = 'slide'
       }
-      
-      
+      console.log("request.query");
 
       console.log(request.query);
 

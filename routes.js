@@ -18,6 +18,7 @@ router.post('/authenticate', accounts.authenticate);
 router.get('/dashboard', dashboard.index);
 router.get('/about', about.index);
 
+
 router.post('/dashboard/uploadpicture', dashboard.uploadPicture);
 router.get('/dashboard/deleteallpictures', dashboard.deleteAllPictures);
 router.get('/dashboard/checkbox', dashboard.checkBox);
