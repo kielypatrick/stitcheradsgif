@@ -30,7 +30,7 @@ const dashboard = {
       if (viewData.transition === undefined){
         viewData.transition = "rZoom";
       }
-     viewData.textColour = "000000";
+      viewData.textColour = "000000";
 
       //if statement above to make sure we stay on the same transition mode after upload or delete
       cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){

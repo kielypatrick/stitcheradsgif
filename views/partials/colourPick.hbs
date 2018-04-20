@@ -1,57 +1,52 @@
  <div class="field">
-        <h2 for="colorWell">Text Colour:</h2>
-        <input onChange="colourChange(this.value)" type="color" value="#000000" id="colorWell">
-        <p>
-          hello!  Colour change to 
-         </p>
-         <p>
-          <span id="textColour">{{textColour}}</span>
+    <h2 for="colorWell">Text Colour:</h2>
+    <input onChange="colourChange(this.value)" type="color" value="#000000" id="colorWell">
+    <p>
+      Change Colours here! 
+    </p>
+    <p type="hidden">
+      <span id="textColour">{{textColour}}</span>
 
-         </p>
+    </p>
 
  </div>
 <script>
-    var colorWell;
-    var defaultColor = "#0000ff";
-    var textColour;
+  var colorWell;
+  var defaultColor = "#0000ff";
+  var textColour;
 
-    window.addEventListener("load", startup, false);
+  window.addEventListener("load", startup, false);
   
-  function colourChange(val){
-            var parentDOM = document.getElementById("bxslider100");
+  function colourChange(val){  
+           
+    var parentDOM = document.getElementById("bxslider100");
 
-                    document.getElementById('textColour').innerHTML = val;
-                      console.log(val + "  textColour with #");
-                      textColour = val.slice(1, 7);
+    document.getElementById('textColour').innerHTML = val;
+    console.log(val + "  textColour with #");
+    textColour = val.slice(1, 7);
+    //removes hashtag for use in cloudinary address
     
-    // test=parentDOM.getElementsByClassName("taggedImage");//test is not target element
-    //     console.log(test);//HTMLCollection[number of images]
-            for (i = 0; i < 5; i++) { 
+    var images = parentDOM.getElementsByClassName("taggedImage");
+    //     console.log(images);//HTMLCollection[number of images]
+    for (i = 0; i < images.length; i++) { 
 
-                      var str = parentDOM.getElementsByClassName("taggedImage")[i].src; 
-                      console.log(str);
-            
-                      var res = str.replace("co_rgb:000000", "co_rgb:" + textColour);
-                      parentDOM.getElementsByClassName("taggedImage")[i].src = res;
-                      console.log("textColour set to" + textColour);
-                          console.log(res);
-            }
+      var str = parentDOM.getElementsByClassName("taggedImage")[i].src; 
+      console.log(str);
 
+      var res = str.replace(/_rgb:[0-9a-f]+/, "_rgb:" + textColour);
+      parentDOM.getElementsByClassName("taggedImage")[i].src = res;
+      console.log("textColour set to " + textColour);
+      console.log(res);
 
-                }
+    }
+  }      
     
-    function startup() {
-      colorWell = document.querySelector("#colorWell");
-      colorWell.value = defaultColor;
-      
-      colorWell.select();
-    } 
-    
-//    function colorChange(event) {
-//       document.getElementById('newColor').innerHTML = event.target.value;
-//     }
-//   
-   
+  function startup() {
+    colorWell = document.querySelector("#colorWell");
+    colorWell.value = defaultColor;
+
+  } 
+  
 </script>
 
  

@@ -11,13 +11,15 @@
           <h2>Speed</h2>
          
           <input style="width:400px" class="slider" type="range" min=".5" max="5"
-                   value="2" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
+                   value=".5" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
           
            
-          Picture change after: <span id="sliderStatus">2</span> seconds
+          Picture change after: <span id="sliderStatus">0.5</span> seconds
           
         </div>
-        <div>
+        {{> colourPick}}
+        
+        <div id="bxslider100">
          <ul class="bxslider">
            
           {{#each album.image}}
@@ -42,9 +44,9 @@
               <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:000,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard9"/></li>
 
             <li>
-              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_0.99,c_crop,g_center/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard10"/></li>
+              <img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_0.99,c_crop,g_center/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard10"/></li>
             <li>
-              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard"/></li>
+              <img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard"/></li>
 
            {{else}}
             <li>
@@ -72,7 +74,7 @@
                             slideWidth: 400,
                             minSlides: 1,
                             maxSlides: 1,
-                            pause: 200,
+                            pause: 50,
                             pager: false,
                             speed: 1,
                             auto: true,
