@@ -36,7 +36,6 @@
   <script>
     var colorWell;
     var defaultColor = "#0000ff";
-
     window.addEventListener("load", startup, false);
     
     function startup() {
@@ -49,7 +48,6 @@
     
     function updateFirst(event) {
       var p = document.querySelector("p");
-
       if (p) {
         p.style.color = event.target.value;
         console.log(event.target.value);
@@ -60,14 +58,12 @@
     function updateAll(event) {
       document.querySelectorAll("p").forEach(function(p) {
         p.style.color = event.target.value;
-
       });
     }
     
    function colorChange(event) {
       document.getElementById('newColor').innerHTML = event.target.value;
     }
-
     
   </script>
         </div>
