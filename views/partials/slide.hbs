@@ -22,7 +22,7 @@
           {{#each album.image}}
             {{#if tags }}
             <li>
-              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:fff,g_north_west,a_-30,x_45,y_80{{split1}}" title="Blue Lizard"/></li>
+              {{> finalTaggedImage}}
 
            {{else}}
             

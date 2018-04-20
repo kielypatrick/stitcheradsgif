@@ -9,7 +9,7 @@ var Promise = require("bluebird");
 const Handlebars = require('handlebars');
 
 
-const viewData = {
+var viewData = {
     title: 'PictureStore Dashboard',
 };
 
@@ -30,6 +30,8 @@ const dashboard = {
       if (viewData.transition === undefined){
         viewData.transition = "rZoom";
       }
+     viewData.textColour = "000000";
+
       //if statement above to make sure we stay on the same transition mode after upload or delete
       cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
       // this is all only done when we have a response from cloudinary
@@ -82,6 +84,7 @@ const dashboard = {
           split1: res.split[1],
           logo: viewData.logo,
           textHeight: textHeight,
+          textColour: viewData.textColour,
           logoWidth: logoWidth
             
       }
@@ -174,16 +177,48 @@ const dashboard = {
 
       console.log(request.query.value);
      
-      // setInterval()
       response.render('dashboard', viewData);         
       
     },
   
-      // setInterval() {
-      // $( "#preview" ).load( "views/partials/card.hbs", function() {
-      //   alert( "Load was performed." );
-      // });        },
+//   colourPick(){
+//     var colorWell;
+//     var defaultColor = "#0000ff";
 
+//     window.addEventListener("load", startup, false);
+    
+//     function startup() {
+//       colorWell = document.querySelector("#colorWell");
+//       colorWell.value = defaultColor;
+//       colorWell.addEventListener("input", updateFirst, false);
+//       colorWell.addEventListener("change", updateAll, false);
+//       colorWell.select();
+//     }
+    
+//     function updateFirst(event) {
+//       var p = document.querySelector("p");
+
+//       if (p) {
+//         p.style.color = event.target.value;
+//         console.log(event.target.value);
+//         colorChange(event)
+//       }
+//     }
+    
+//     function updateAll(event) {
+//       document.querySelectorAll("p").forEach(function(p) {
+//         p.style.color = event.target.value;
+//         let newColour = event.target.value;
+//         console.log(newColour);
+
+//       });
+//     }
+    
+//    function colorChange(event) {
+//       document.getElementById('newColor').innerHTML = event.target.value;
+//     }
+//   },
+   
 };
 
 module.exports = dashboard;
