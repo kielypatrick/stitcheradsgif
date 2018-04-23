@@ -7,15 +7,8 @@
 
 </form> 
 
-      <div class="field">
-          <h2>Speed</h2>
-         
-          <input style="width:400px" class="slider" type="range" min=".5" max="5"
-                   value="2" step=".5" onChange="sliderChange(this.value)" name="delay"/> 
-                     
-          Picture change after: <span id="sliderStatus">2</span> seconds
-          
-        </div>
+        {{> speed}}
+
         {{> colourPick}}
         
         <div id="bxslider100">
@@ -61,7 +54,6 @@
           {{/each}}
          </ul>
         </div>
-             <h2><a href="" id="reload-slider">RELOAD SETTINGS</a></h2>
       
          <script>
            var slider = $('.bxslider').bxSlider({
@@ -72,7 +64,7 @@
                             slideWidth: 400,
                             minSlides: 1,
                             maxSlides: 1,
-                            pause: 200,
+                            pause: 50,
                             pager: false,
                             speed: 1,
                             auto: true,
