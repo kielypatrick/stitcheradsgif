@@ -24,7 +24,7 @@ router.get('/dashboard/deleteallpictures', dashboard.deleteAllPictures);
 router.get('/dashboard/checkbox', dashboard.checkBox);
 
 router.get('/dashboard/deletepicture', dashboard.deletePicture);
-router.post('/dashboard/createGif', dashboard.createGif);
+//router.post('/dashboard/createGif', dashboard.createGif);
 
 
 module.exports = router;

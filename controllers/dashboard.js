@@ -7,7 +7,8 @@ const pictureStore = require('../models/picture-store.js');
 const cloudinary = require('cloudinary');
 var Promise = require("bluebird");
 const Handlebars = require('handlebars');
-
+const _ = require('lodash')
+//lodash required for .find method
 
 var viewData = {
     title: 'PictureStore Dashboard',
@@ -34,88 +35,103 @@ const dashboard = {
 
       //if statement above to make sure we stay on the same transition mode after upload or delete
       cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
-      // this is all only done when we have a response from cloudinary
-      viewData.album =  result.resources
-      console.log('current user id : ', loggedInUser.id)
+        // this is all only done when we have a response from cloudinary
+        viewData.album =  result.resources
+        console.log('current user id: ', loggedInUser.id)
 
-      // console.log('all : ', viewData.album)
-      console.log("photos" + viewData.album.length)
+        // console.log('all : ', viewData.album)
+        console.log(viewData.album.length + " photos" )
 
-      // Using Promise.map:
-      //map over every image in our album and promise to return from cloudinary
-      Promise.map(viewData.album, function(image) {
-      //request to cloudinary for each of our images in the array
-      return cloudinary.v2.api.resource(image.public_id, function(error, imgResult){
-      //loaded our image tags
-      //          console.log('finished loading image tags')
-      if (viewData.album){
+        // Using Promise.map:
+        //map over every image in our album and promise to return from cloudinary
+        Promise.map(viewData.album, function(image) {
+          //request to cloudinary for each of our images in the array
+          return cloudinary.v2.api.resource(image.public_id, function(error, imgResult){
+          //loaded our image tags
+          //          console.log('finished loading image tags')
+          if (viewData.album){
 
-        imgResult.tags.shift();
-
-        if (imgResult.tags == 'logo') {
+            imgResult.tags.shift();
+            //remove the user id tag
             
-            viewData.logo = imgResult.public_id;
-            viewData.logoUrl = imgResult.url;
-            console.log('logo: ' + viewData.logo);
-            }
-        
-        // console.log("photos" + viewData.album.length)
-
-        imgResult.split = imgResult.url.split("upload");
-       // console.log('img link: ' + imgResult.split[0] + 'upload' + imgResult.split[1]);
-        console.log('img tags: ' + imgResult.tags);
-
-        return imgResult
-        
-      }
-
-      }).then((res) =>{
-        
-        //console.log('img WIT: ' + res.width);
-        let logoWidth = Math.floor(res.width/6);
-        let textHeight = Math.floor(logoWidth/3);
-
-          //structure our images in a nice way
-          let image = {
-          img: res.url,
-          public_id: res.public_id,
-          tags: res.tags,
-          split: res.split[0],
-          split1: res.split[1],
-          logo: viewData.logo,
-          textHeight: textHeight,
-          textColour: viewData.textColour,
-          logoWidth: logoWidth
+            //this block removed as logo needs to be set later 
+            //to ensure it's picked up by all images
             
-      }
-                console.log('logo WIT: ' + image.logoWidth);
-        
+//             console.log(' >> tags : ', imgResult.tags)
+            if (imgResult.tags == 'logo') {
 
-          return image
-      })
-      }).then(function(formattedImages){
-          //when all is done we render our view :)
-        
-          viewData.album.image=formattedImages
-          console.log("Total Images " + formattedImages.length)
-        let i
-        for (i = 0; i < formattedImages.length; i++){
-        //  console.log(viewData.album.image)
+              viewData.logoUrl = imgResult.url;
+              console.log('Logo at ' + viewData.logoUrl);
+              }
+//               console.log('THIS IS A LOGO')
+//             } else {
+//               console.log('THIS IS NOT A LOGO')
+//               console.log('img tag: ' + imgResult.tags);
+//             }
 
-          if (formattedImages[i].public_id == viewData.logo){
-           formattedImages.splice(i, 1); 
+            imgResult.split = imgResult.url.split("upload");
+           // image url can be found at imgResult.split[0] + 'upload' + imgResult.split[1]
+
+            return imgResult
+
           }
-          //seperate the logo image from the album
-        }      
 
-        console.log("All Images... ");  
-        console.log(formattedImages);  
-        console.log("current user logo is at");  
-        console.log(viewData.logoUrl);
-        console.log(viewData.transition);
+          }).then((res) =>{
+            //console.log('img WIT: ' + res.width);
+            let logoWidth = Math.floor(res.width/6);
+            let textHeight = Math.floor(logoWidth/3);
+              //structure our images in a nice way
+              let image = {
+              img: res.url,
+              public_id: res.public_id,
+              tags: res.tags,
+              split: res.split[0],
+              split1: res.split[1],
+              logo: viewData.logo,
+              textHeight: textHeight,
+              textColour: viewData.textColour,
+              logoWidth: logoWidth
 
-        response.render('dashboard', viewData);         
-        });
+            }
+            console.log('logo size: ' + image.logoWidth);
+
+            return image
+          })
+        }).then(function(formattedImages){
+          //when all is done we render our view :)
+          
+          // Find in the formatted images for the logo, map over the images and 
+          // set the logo id 
+
+          //find the image tagged "logo"
+          let logoImage = _.find(formattedImages, (image) => image.tags[0] === 'logo')
+          //update the album to attach this logo to all images
+          let updatedAlbum = formattedImages.map((image) => {
+            image.logo = logoImage.public_id
+            return image
+          })
+          viewData.album.image = updatedAlbum
+          console.log("Total Images " + updatedAlbum.length)
+          let i
+          for (i = 0; i < updatedAlbum.length; i++){
+          //  console.log(viewData.album.image)
+
+            if (updatedAlbum[i].public_id == updatedAlbum[i].logo){
+             updatedAlbum.splice(i, 1); 
+                        console.log("What now??... ");  
+
+            }
+            //seperate the logo image from the album
+          }      
+
+          console.log("All Images... ");  
+          console.log(updatedAlbum);  
+          console.log("current user logo is at");  
+          console.log(viewData.logoUrl);
+          console.log(viewData.transition);
+
+          response.render('dashboard', viewData);         
+          });
       });
      
     },                                         
@@ -142,16 +158,16 @@ const dashboard = {
 
   },
 
-    createGif(request, response) {
-      const loggedInUser = accounts.getCurrentUser(request);
+//     createGif(request, response) {
+//       const loggedInUser = accounts.getCurrentUser(request);
 
-      cloudinary.v2.uploader.multi(loggedInUser.id, {delay: (request.body.delay * 1000)},
-      function(error,result) {
-      viewData.gif = result.url;
-      console.log('gif is at ' + viewData.gif);
-    });
+//       cloudinary.v2.uploader.multi(loggedInUser.id, {delay: (request.body.delay * 1000)},
+//       function(error,result) {
+//       viewData.gif = result.url;
+//       console.log('gif is at ' + viewData.gif);
+//     });
 
-  },
+//   },
   
     checkBox(request, response){
       viewData.transition = request.query.value;
@@ -180,44 +196,6 @@ const dashboard = {
       response.render('dashboard', viewData);         
       
     },
-  
-//   colourPick(){
-//     var colorWell;
-//     var defaultColor = "#0000ff";
-
-//     window.addEventListener("load", startup, false);
-    
-//     function startup() {
-//       colorWell = document.querySelector("#colorWell");
-//       colorWell.value = defaultColor;
-//       colorWell.addEventListener("input", updateFirst, false);
-//       colorWell.addEventListener("change", updateAll, false);
-//       colorWell.select();
-//     }
-    
-//     function updateFirst(event) {
-//       var p = document.querySelector("p");
-
-//       if (p) {
-//         p.style.color = event.target.value;
-//         console.log(event.target.value);
-//         colorChange(event)
-//       }
-//     }
-    
-//     function updateAll(event) {
-//       document.querySelectorAll("p").forEach(function(p) {
-//         p.style.color = event.target.value;
-//         let newColour = event.target.value;
-//         console.log(newColour);
-
-//       });
-//     }
-    
-//    function colorChange(event) {
-//       document.getElementById('newColor').innerHTML = event.target.value;
-//     }
-//   },
    
 };
 

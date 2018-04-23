@@ -28,11 +28,12 @@
     
     var images = parentDOM.getElementsByClassName("taggedImage");
     //     console.log(images);//HTMLCollection[number of images]
+    // find all images in our bxslider100 div with class=taggedImage
     for (i = 0; i < images.length; i++) { 
 
       var str = parentDOM.getElementsByClassName("taggedImage")[i].src; 
       console.log(str);
-
+      // find the image source string and change to our new colour
       var res = str.replace(/_rgb:[0-9a-f]+/, "_rgb:" + textColour);
       parentDOM.getElementsByClassName("taggedImage")[i].src = res;
       console.log("textColour set to " + textColour);
