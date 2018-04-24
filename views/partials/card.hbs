@@ -4,7 +4,16 @@
     <img src="{{img}}">
   </div>
   <div class="content"> 
-    <p class="center aligned header">Title: {{tags}}</p>
+    <p class="center aligned header">Tag: 
+      {{#if tags }}
+        {{tags}}<a href="/dashboard/deletetag?img={{img}}/tag={{tags}}">
+        <i class="red delete icon"></i>
+        </a>
+      {{else}}
+        <a href="/dashboard/addtag?img={{img}}">
+        <i class="green add icon"></i>
+        </a>
+      {{/if}}</p>
     <div class="center aligned meta">
       <a href="/dashboard/deletepicture?img={{img}}">
         <i class="red icon trash"></i>

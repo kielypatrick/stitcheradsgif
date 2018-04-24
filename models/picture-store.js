@@ -83,18 +83,35 @@ const pictureStore = {
     const id = path.parse(image);
     console.log('You have deleted the following image..');
     console.log(id.name);
-    cloudinary.api.delete_resources([id.name], function (result) {
-      console.log(result);
+    cloudinary.api.delete_resources([id.name], 
+                                    function (result) {console.log(result);
             console.log("current transition >>>>>>>>> " + viewData.transition );
-      
-      resp.redirect('/dashboard');
-
+            resp.redirect('/dashboard');
 
      // pictureStore.newDashboard(viewData, resp);
       // resp.render('dashboard', viewData);         
 
       //redirect moved into the cloudinary call to make sure the delete completes first
-    });
+            });
+
+  },
+  
+  deleteTag(userId, image, resp, viewData) {
+    const idNoTag = path.dirname(image);
+    console.log('You have deleted the tag from  following image..');
+    console.log(idNoTag);
+    const id =  path.parse(idNoTag);
+    console.log(id.name);
+    const tagEquals = path.parse(image);
+    const tagSplit = tagEquals.name.split("=");
+    const tag = tagSplit[1];
+
+    console.log(tag);
+
+    cloudinary.v2.uploader.remove_tag(tag, [id.name],
+                                      function (result) {console.log(result, "herro?");
+                                                         resp.redirect('/dashboard');
+                                      });
 
   },
 
