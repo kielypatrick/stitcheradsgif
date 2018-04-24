@@ -40,7 +40,7 @@ const dashboard = {
         console.log('current user id: ', loggedInUser.id)
 
         // console.log('all : ', viewData.album)
-        console.log(viewData.album.length + " photos" )
+        console.log("Total Images: " + viewData.album.length + " photos" )
 
         // Using Promise.map:
         //map over every image in our album and promise to return from cloudinary
@@ -106,23 +106,25 @@ const dashboard = {
           //find the image tagged "logo"
           let logoImage = _.find(formattedImages, (image) => image.tags[0] === 'logo')
           //update the album to attach this logo to all images
+          //map a new version of the images over the old ones, with the logo property correctly defined
           let updatedAlbum = formattedImages.map((image) => {
             image.logo = logoImage.public_id
             return image
           })
           viewData.album.image = updatedAlbum
-          console.log("Total Images " + updatedAlbum.length)
           let i
           for (i = 0; i < updatedAlbum.length; i++){
           //  console.log(viewData.album.image)
 
             if (updatedAlbum[i].public_id == updatedAlbum[i].logo){
              updatedAlbum.splice(i, 1); 
-                        console.log("What now??... ");  
+                        console.log("Logo spliced out... ");  
 
             }
             //seperate the logo image from the album
+
           }      
+          console.log("Total Images (not counting logo image): " + updatedAlbum.length)
 
           console.log("All Images... ");  
           console.log(updatedAlbum);  
@@ -155,6 +157,14 @@ const dashboard = {
     deletePicture(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
       pictureStore.deletePicture(loggedInUser.id, request.query.img, response, viewData);
+
+  },
+  
+  deleteTag(request, response) {
+      const loggedInUser = accounts.getCurrentUser(request);
+          console.log("request.query", request.query.img);
+
+      pictureStore.deleteTag(loggedInUser.id, request.query.img, response, viewData);
 
   },
 
