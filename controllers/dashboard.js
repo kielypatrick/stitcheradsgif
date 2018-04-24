@@ -7,6 +7,8 @@ const pictureStore = require('../models/picture-store.js');
 const cloudinary = require('cloudinary');
 var Promise = require("bluebird");
 const Handlebars = require('handlebars');
+const path = require('path');
+
 const _ = require('lodash')
 //lodash required for .find method
 
@@ -148,6 +150,18 @@ const dashboard = {
     });
       
   },
+  
+    addTag(request, response) {
+      
+      const loggedInUser = accounts.getCurrentUser(request);
+            logger.info('uploading tag ' + request.body.tag + ' to picture ' +  request.body.img)
+
+      const id = path.parse(request.body.img);
+      cloudinary.v2.uploader.add_tag(request.body.tag, id.name, function(res) { 
+      logger.info('added tag ' + request.body.tag + ' to image', res) });
+      response.redirect('/dashboard');
+    
+  },
 
     deleteAllPictures(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
@@ -160,25 +174,14 @@ const dashboard = {
 
   },
   
-  deleteTag(request, response) {
+    deleteTag(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
           console.log("request.query", request.query.img);
 
-      pictureStore.deleteTag(loggedInUser.id, request.query.img, response, viewData);
+          pictureStore.deleteTag(loggedInUser.id, request.query.img, response, viewData);
 
   },
 
-//     createGif(request, response) {
-//       const loggedInUser = accounts.getCurrentUser(request);
-
-//       cloudinary.v2.uploader.multi(loggedInUser.id, {delay: (request.body.delay * 1000)},
-//       function(error,result) {
-//       viewData.gif = result.url;
-//       console.log('gif is at ' + viewData.gif);
-//     });
-
-//   },
-  
     checkBox(request, response){
       viewData.transition = request.query.value;
       if (request.query.value == 'zoom')
