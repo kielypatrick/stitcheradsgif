@@ -20,6 +20,8 @@ router.get('/about', about.index);
 
 
 router.post('/dashboard/uploadpicture', dashboard.uploadPicture);
+router.post('/dashboard/addtag', dashboard.addTag);
+
 router.get('/dashboard/deleteallpictures', dashboard.deleteAllPictures);
 router.get('/dashboard/checkbox', dashboard.checkBox);
 

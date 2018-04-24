@@ -78,6 +78,18 @@ const pictureStore = {
     });
      
   },
+  
+//   addTag(userId, image, tag, response){
+//         console.log(image);
+//             console.log(tag);
+
+//         const id = path.parse(image);
+//      cloudinary.v2.uploader.add_tag(tag, id.name, function(res) { 
+//             logger.info('added tag ' + tag + ' to image', res) });
+//                 response.redirect('/dashboard');
+
+  
+// },
 
   deletePicture(userId, image, resp, viewData) {
     const id = path.parse(image);
@@ -109,7 +121,7 @@ const pictureStore = {
     console.log(tag);
 
     cloudinary.v2.uploader.remove_tag(tag, [id.name],
-                                      function (result) {console.log(result, "herro?");
+                                      function (result) {console.log(result, "deleted tag");
                                                          resp.redirect('/dashboard');
                                       });
 
