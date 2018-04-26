@@ -105,7 +105,6 @@ const dashboard = {
           
           // Find in the formatted images for the logo, map over the images and 
           // set the logo id 
-            console.log(formattedImages);
 
           //find the image tagged "logo"
           let logoImage = _.find(formattedImages, (image) => image.tags[0] === 'logo')
@@ -126,7 +125,6 @@ const dashboard = {
             updatedAlbum = formattedImages
             
                       viewData.album.image = updatedAlbum
-
 
           }
           if (updatedAlbum){
