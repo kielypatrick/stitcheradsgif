@@ -108,7 +108,7 @@ cancel.onclick = function() {
   
   document.getElementById("upload_widget_opener").addEventListener("click", function() {
     cloudinary.openUploadWidget({ cloud_name: 'patrick86', upload_preset: 'kvc85rgd', 
-                                 tags:["{{user.id}}"]}, 
+                                 tags:["!!!!!{{user.id}}"]}, 
       function(error, result) { console.log(error, result) 
                                          window.location.reload();
 //took a few efforts to get the reload location correctly placed so 

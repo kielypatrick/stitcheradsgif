@@ -62,8 +62,8 @@ const pictureStore = {
           console.log(">>>>" + tag);
           
     // add tag with user ID for retrieval of users photos
-        cloudinary.v2.uploader.add_tag(userId, result.public_id, function(res) { 
-          logger.info('added tag ' + userId + ' to image ' + tag, res) 
+        cloudinary.v2.uploader.add_tag("!!!!!" + userId, result.public_id, function(res) { 
+          logger.info('added tag !!!!!' + userId + ' to image ' + tag, res) 
           cloudinary.v2.uploader.add_tag(tag, result.public_id, function(res2) { 
             logger.info('added tag ' + tag + ' to image', res2) });
           
@@ -128,7 +128,7 @@ const pictureStore = {
   },
 
    deleteAllPictures(userId, resp) {
-    cloudinary.v2.api.resources_by_tag(userId, function(error, result){
+    cloudinary.v2.api.resources_by_tag("!!!!!" + userId, function(error, result){
       let album =  result.resources
       console.log(album[0].public_id + "deleting stuff");
       
