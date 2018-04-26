@@ -20,7 +20,10 @@
     "winston": "^2.3.1",
     "bluebird": "^3.5.1",
     "joi-browser": "^13.0.1",
-    "handlebars-helpers": "^0.10.0"
+    "handlebars-helpers": "^0.10.0",
+    "bootstrap-modal": "^2.2.0",
+    "bootstrap": "^4.1.0",
+    "liquid-fire": "^0.29.2"
   },
   "engines": {
     "node": "6.10.x"

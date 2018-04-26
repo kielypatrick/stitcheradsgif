@@ -24,6 +24,7 @@ const dashboard = {
 
     index(request, response) {
       logger.info('dashboard rendering');
+ 
 
       const loggedInUser = accounts.getCurrentUser(request);
       viewData.user = loggedInUser;
@@ -104,30 +105,45 @@ const dashboard = {
           
           // Find in the formatted images for the logo, map over the images and 
           // set the logo id 
+            console.log(formattedImages);
 
           //find the image tagged "logo"
           let logoImage = _.find(formattedImages, (image) => image.tags[0] === 'logo')
           //update the album to attach this logo to all images
           //map a new version of the images over the old ones, with the logo property correctly defined
-          let updatedAlbum = formattedImages.map((image) => {
+          let updatedAlbum;
+          
+          if (logoImage){
+            //this if statement was needed as the app crashed after a delete all was triggered and logoImage was undefined
+          updatedAlbum = formattedImages.map((image) => {
             image.logo = logoImage.public_id
             return image
           })
           viewData.album.image = updatedAlbum
-          let i
-          for (i = 0; i < updatedAlbum.length; i++){
-          //  console.log(viewData.album.image)
+          }
+          else{
+            
+            updatedAlbum = formattedImages
+            
+                      viewData.album.image = updatedAlbum
 
-            if (updatedAlbum[i].public_id == updatedAlbum[i].logo){
-             updatedAlbum.splice(i, 1); 
-                        console.log("Logo spliced out... ");  
 
-            }
-            //seperate the logo image from the album
+          }
+          if (updatedAlbum){
+            let i
+              for (i = 0; i < updatedAlbum.length; i++){
+              //  console.log(viewData.album.image)
+
+                if (updatedAlbum[i].public_id == updatedAlbum[i].logo){
+                 updatedAlbum.splice(i, 1); 
+                            console.log("Logo spliced out... ");  
+
+                }
+                //seperate the logo image from the album
 
           }      
           console.log("Total Images (not counting logo image): " + updatedAlbum.length)
-
+          }
           console.log("All Images... ");  
           console.log(updatedAlbum);  
           console.log("current user logo is at");  
