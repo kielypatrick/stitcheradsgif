@@ -13,12 +13,12 @@
             </a>
           {{else}}
              
-        <i onclick="toggle('Comments{{img}}')" style="display:inline;" class="green add icon"></i> 
+        <i onclick="toggle('Comments{{img}}', '{{@index}}')" style="display:inline;" class="green add icon"></i> 
         
         <div id="Comments{{img}}" style="display:none;">
           <form action="/dashboard/addtag?{{img}}" method="post" enctype="multipart/form-data">
 
-            <input placeholder="..." type="text" name="tag">
+            <input id="tag-{{@index}}" placeholder="..." type="text" name="tag">
             <input type="hidden" name="img" value={{img}}>
             
             <button class="ui mini blue submit button"> Add tag!</button>
