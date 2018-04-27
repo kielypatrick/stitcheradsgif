@@ -37,7 +37,7 @@ const dashboard = {
       viewData.textColour = "000000";
 
       //if statement above to make sure we stay on the same transition mode after upload or delete
-      cloudinary.v2.api.resources_by_tag(loggedInUser.id, function(error, result){
+      cloudinary.v2.api.resources_by_tag("!!!!!" + loggedInUser.id, function(error, result){
         // this is all only done when we have a response from cloudinary
         viewData.album =  result.resources
         console.log('current user id: ', loggedInUser.id)

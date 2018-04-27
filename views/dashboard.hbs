@@ -18,23 +18,25 @@
       {{/each}}
     </div>
     <div class="ui segment">
-      
+      {{#if album}}
       <!-- Trigger/Open The Modal -->
-      <button id="myBtn" class="negative ui button">Delete All</button>
+        <button id="myBtn" class="negative ui button">Delete All</button>
+      {{else}}
+        <button class="negative ui button" disabled>Delete All</button>
+      {{/if}}
       <!-- The Modal -->
-<div id="myModal" class="modal">
+      <div id="myModal" class="modal">
 
-  <div class="modal-content">
-    <span class="close">&times;</span>
+        <div class="modal-content">
+          <span class="close">&times;</span>
 
- <p><label for="confirmDeleteAll">Delete All Pictures??</label>
-      <menu>
-        <button id="cancel" type="reset">Cancel</button>
-        <a href="/dashboard/deleteallpictures"> <button class="negative ui button">Confirm Delete All</button></a>
-      </menu>  
+            <label for="confirmDeleteAll">Delete All Pictures??</label>
+            <menu>
+              <button id="cancel" type="reset">Cancel</button>
+              <a href="/dashboard/deleteallpictures"> <button class="negative ui button">Confirm Delete All</button></a>
+            </menu>  
+        </div>
       </div>
-  </div>
-
     </div>
       
   </section>
@@ -108,7 +110,8 @@ cancel.onclick = function() {
   
   document.getElementById("upload_widget_opener").addEventListener("click", function() {
     cloudinary.openUploadWidget({ cloud_name: 'patrick86', upload_preset: 'kvc85rgd', 
-                                 tags:["{{user.id}}"]}, 
+                                 tags:["!!!!!{{user.id}}"], stylesheet: "minimal"}, 
+                                       
       function(error, result) { console.log(error, result) 
                                          window.location.reload();
 //took a few efforts to get the reload location correctly placed so 
