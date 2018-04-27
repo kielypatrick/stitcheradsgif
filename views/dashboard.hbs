@@ -110,7 +110,12 @@ cancel.onclick = function() {
   
   document.getElementById("upload_widget_opener").addEventListener("click", function() {
     cloudinary.openUploadWidget({ cloud_name: 'patrick86', upload_preset: 'kvc85rgd', 
-                                 tags:["!!!!!{{user.id}}"], stylesheet: "minimal"}, 
+                                  tags:["!!!!!{{user.id}}"], 
+                                  sources: ['local','url', 'dropbox'],
+                                  dropbox_app_key: 'oa2fqxuz7w8xd5x',
+                                 stylesheet: '#cloudinary-navbar { background: #00c7fa;}'
+                            
+}, 
                                        
       function(error, result) { console.log(error, result) 
                                          window.location.reload();
