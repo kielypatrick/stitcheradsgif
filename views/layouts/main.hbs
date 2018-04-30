@@ -2,35 +2,35 @@
 <html>
 <head>
     <meta charset="utf-8">
-        <title> {{title}} </title>
-        <meta charset="UTF-8">
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" type="text/css">
-                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
+    <title> {{title}} </title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" type="text/css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
 
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-                    <!-- bxSlider Javascript file -->
-                    <script src="jquery.bxslider.js"></script>
-  
-  
-                    <script>
-                        function toggle(id, index) {
-                            var input = document.querySelector('#tag-' + index);
-                            if (document.getElementById(id).style.display == 'none') {
-                              document.getElementById(id).style.display = 'block';
-                              input.focus();
-                          } else {
-                              document.getElementById(id).style.display = 'none';
-                          }
-                      
-                        }
-                    </script>
-  
+    <!-- bxSlider Javascript file -->
+    <script src="jquery.bxslider.js"></script>
 
-  
+
+    <script>
+        function toggle(id, index) {
+            var input = document.querySelector('#tag-' + index);
+            if (document.getElementById(id).style.display == 'none') {
+              document.getElementById(id).style.display = 'block';
+              input.focus();
+          } else {
+              document.getElementById(id).style.display = 'none';
+          }
+
+        }
+    </script>
+
+
+
   <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -72,7 +72,20 @@ body {font-family: Arial, Helvetica, sans-serif;}
     text-decoration: none;
     cursor: pointer;
 }
-    
+    /* The Close Button */
+.close1 {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+    color: #ff0000;
+    text-decoration: none;
+    cursor: pointer;
+}    
 </style>
   
   
