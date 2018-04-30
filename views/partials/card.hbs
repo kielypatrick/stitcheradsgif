@@ -1,9 +1,64 @@
 <div class="ui card">
   
   <div class="ui small center aligned image">
-    <img src="{{img}}">
+    <img id="img{{@index}}" src="{{img}}" >
   </div>
+  <!-- The Image Modal -->
+      <div id="fullImgModal{{@index}}" class="modal">
+        
+        <div class="modal-content">
+          <h3>
+          {{tags}} <span class="close1">&times;</span>
+          </h3>
+         
+            <div class="ui large center aligned image">
+              
+              <img src="{{img}}" >
+            </div>
+            
+            <menu>
+            
+            </menu>  
+        </div>
+      </div>
+  
+  <script>
+
+// Get the button that opens the modal
+var imgModal = document.getElementById("img" + "{{@index}}");
+    console.log("your picture {{@index}}");
+                                     
+
+// When the user clicks the image, open the modal 
+imgModal.onclick = function() {
+  $('#' + 'fullImgModal' + "{{@index}}").show()
+  $('#' + 'fullImgModal' + "{{@index}}").addClass('activeModal');                             
+  console.log("your picture {{img}}");
     
+   // When the user clicks on <span> (x), close the modal 
+    $('.close1').click(function(){
+    $('.activeModal').hide();
+    $('.modal').removeClass('activeModal');
+    });
+  
+  // When the user clicks anywhere outside of the modal, close it
+  //this has to be inside the imgModal item, otherwise it picks up the last image
+  //and only works for the last image
+  window.onclick = function(event) {
+        console.log(event.target.id );
+            console.log({{@index}});
+
+    if (event.target.id == 'fullImgModal' + {{@index}}){
+            console.log("event.target.id" );
+
+      $('.activeModal').hide();
+      $('.modal').removeClass('activeModal');
+    } 
+  }
+}
+
+</script>
+  
     <div class="content"> 
       <p class="center aligned header">Tag: 
           
@@ -14,6 +69,8 @@
           {{else}}
              
         <i onclick="toggle('Comments{{img}}', '{{@index}}')" style="display:inline;" class="green add icon"></i> 
+        
+<!--         @index item passed to toggle mode to facilitate input.focus method -->
         
         <div id="Comments{{img}}" style="display:none;">
           <form action="/dashboard/addtag?{{img}}" method="post" enctype="multipart/form-data">
