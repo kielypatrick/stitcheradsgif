@@ -16,14 +16,14 @@
            
           {{#each album.image}}
             {{#if tags }}
-            <li>
-              {{> finalTaggedImage}}
+              <li>
+                {{> finalTaggedImage}}
+              </li>
+            {{else}}
 
-           {{else}}
-            
-           <li>
-              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard9"/>
-            </li>
+              <li>
+                {{> finalImage}}
+              </li>
             {{/if}}
 
           {{/each}}
