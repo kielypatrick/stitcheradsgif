@@ -12,8 +12,12 @@
           </h3>
          
             <div class="ui large center aligned image">
-              
-              <img src="{{img}}" >
+              {{#if tags }}
+                {{> finalTaggedImage}}
+              {{else}}
+                <img src="{{img}}" >
+              {{/if}}
+
             </div>
             
             <menu>
