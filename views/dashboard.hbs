@@ -91,7 +91,7 @@ cancel.onclick = function() {
             <div class="field"
               <label>End Card Message</label>
               {{#if user.message}}
-                <input value={{user.message}} type="text" name="message">  </input>
+                <input value="{{user.message}}" type="text" name="message">  </input>
               {{else}}
                 <input placeholder="..." type="text" name="message">  </input>
               {{/if}}
