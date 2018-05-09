@@ -19,6 +19,7 @@
               {{/if}}
 
             </div>
+            {{img}}
             
             <menu>
             
@@ -82,11 +83,11 @@
             </a>
           {{else}}
              
-        <i onclick="toggle('Comments{{img}}', '{{@index}}')" style="display:inline;" class="green add icon"></i> 
+        <i onclick="toggle('tags{{@index}}', '{{@index}}')" style="display:inline;" class="green add icon"></i> 
         
 <!--         @index item passed to toggle mode to facilitate input.focus method -->
         
-        <div id="Comments{{img}}" style="display:none;">
+        <div id="tags{{@index}}" style="display:none;">
           <form action="/dashboard/addtag?{{img}}" method="post" enctype="multipart/form-data">
 
             <input id="tag-{{@index}}" placeholder="..." type="text" name="tag">

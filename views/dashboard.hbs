@@ -80,9 +80,91 @@ cancel.onclick = function() {
  
   <div class="ui segment">
     <div class="ui small dividing header"> Current Logo </div>
+    <section class="ui form segment">
+      <form action="/dashboard/addmessage" method="post" enctype="multipart/form-data">
+        <div class="two fields">
+          <div class="field">
+            <img style="width:400px", src="{{logoUrl}}">
+          </div>
+          {{#ifEquals logo "tempLogo.png"}}
+          {{else}}
+            <div class="field"
+              <label>End Card Message</label>
+              {{#if user.message}}
+                <input value={{user.message}} type="text" name="message">  </input>
+              {{else}}
+                <input placeholder="..." type="text" name="message">  </input>
+              {{/if}}
+              <br><br>
+              <select name="font">
+                {{#ifEquals user.messageFont "Verdana"}}
+                  <option name="verdana" selected>Verdana</option>
+                {{else}}
+                  <option name="verdana">Verdana</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageFont "Arial"}}
+                  <option name="arial" selected>Arial</option>
+                {{else}}
+                  <option name="arial">Arial</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageFont "Helvetica"}}
+                  <option name="helvetica" selected>Helvetica</option>
+                {{else}}
+                  <option name="helvetica">Helvetica</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageFont "Neucha"}}
+                  <option name="neucha" selected>Neucha</option>
+                {{else}}
+                  <option name="neucha">Neucha</option>
+                {{/ifEquals}}
 
-    <img style="width:400px", src="{{logoUrl}}">
+              </select>
+              <br><br>
+              <select name="colour">
+                {{#ifEquals user.messageColour "White"}}
+                  <option name="white" selected>White</option>
+                {{else}}
+                  <option name="white">White</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageColour "Red"}}
+                  <option name="red" selected>Red</option>
+                {{else}}
+                  <option name="red">Red</option>
+                {{/ifEquals}} 
+                {{#ifEquals user.messageColour "Orange"}}
+                  <option name="orange" selected>Orange</option>
+                {{else}}
+                  <option name="orange">Orange</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageColour "Green"}}
+                  <option name="green" selected>Green</option>
+                {{else}}
+                  <option name="green">Green</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageColour "Blue"}}
+                  <option name="blue" selected>Blue</option>
+                {{else}}
+                  <option name="blue">Blue</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageColour "Purple"}}
+                  <option name="purple" selected>Purple</option>
+                {{else}}
+                  <option name="purple">Purple</option>
+                {{/ifEquals}}
+                {{#ifEquals user.messageColour "black"}}
+                  <option name="black" selected>Black</option>
+                {{else}}
+                  <option name="black">Black</option>
+                {{/ifEquals}}
+              </select>
+              <br><br>
+              <button class="ui mini blue submit button"> Update Message! </button>
+            </div>
+          {{/ifEquals}}
 
+        </div>
+      </form>
+    </section>
   </div>
 
   <section class="ui raised segment">
@@ -115,8 +197,7 @@ cancel.onclick = function() {
                                   tags:["!!!!!{{user.id}}"], 
                                   sources: ['local','url', 'dropbox'],
                                   dropbox_app_key: 'oa2fqxuz7w8xd5x',
-                                  stylesheet: '#cloudinary-navbar { background: #00c7fa;}'
-                            
+                                  stylesheet: '#cloudinary-navbar { background: #00c7fa;}'               
 }, 
                                        
       function(error, result) { console.log(error, result) 

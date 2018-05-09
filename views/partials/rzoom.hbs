@@ -52,6 +52,20 @@
             {{/if}}
 
           {{/each}}
+          {{#ifEquals logo "tempLogo.png"}}
+            {{else}}
+              {{#if user.message}}
+                <li>
+                  <img src="{{endCardUrl}}"/>
+                </li>
+              {{else}}
+                <li>
+                  <img src="{{logoUrl}}"/>
+                </li>
+             {{/if}}               
+           {{/ifEquals}}
+           
+
          </ul>
         </div>
       
@@ -60,7 +74,7 @@
                             mode: 'fade',
                             moveSlides: 1,
                             slideMargin: 40,
-                            infiniteLoop: true,
+                            infiniteLoop: false,
                             slideWidth: 400,
                             minSlides: 1,
                             maxSlides: 1,
@@ -81,6 +95,7 @@
            slider.reloadSlider({
             mode: 'fade',
             auto: true,
+            infiniteLoop: false,
             slideWidth: 400,
             speed: 1,
             pager: false,
