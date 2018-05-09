@@ -15,16 +15,35 @@
            
           {{#each album.image}}
             {{#if tags }}
-            <li>
-              <img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_iw,h_ih/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:{{textColour}},g_north_west,a_-30,x_{{textHeight}},y_{{textHeight}}{{split1}}" title="Blue Lizard9"/></li>
+           
+              <li>
+                <img src="{{split}}upload/{{split1}}" title="Blue Lizard9"/>
+             </li>
+              <li>
+                <img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_80/w_iw,h_ih/l_dit_dot,w_{{width}},h_{{textBgHeight}},e_colorize,co_rgb:{{textBgColour}},g_south/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:{{textColour}},g_south_west,x_{{textHeight}},y_{{textPad}}{{split1}}" title="Blue Lizard9"/>
+             </li>
            {{else}}
-            
-           <li>
-              <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard9"/>
-            </li>
+             <li>
+                <img src="{{split}}upload/{{split1}}" title="Blue Lizard9"/>
+             </li>
+             <li>
+                <img src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih{{split1}}" title="Blue Lizard9"/>
+              </li>
             {{/if}}
 
           {{/each}}
+           {{#ifEquals logo "tempLogo.png"}}
+            {{else}}
+              {{#if user.message}}
+                <li>
+                  <img src="{{endCardUrl}}"/>
+                </li>
+              {{else}}
+                <li>
+                  <img src="{{logoUrl}}"/>
+                </li>
+             {{/if}}               
+           {{/ifEquals}}
            <li>
               <img src="http://res.cloudinary.com/patrick86/image/upload/c_fill,h_810,w_1000/l_dit_dot,w_400,h_60,e_colorize,co_rgb:123456,g_south,y_120/l_text:Arial_30_bold:Powered%20By%20Patrick,co_rgb:fff,g_south,y_133/foodfest_wc3gqq.jpg" title="Blue Lizard9"/>
             </li>
@@ -36,15 +55,17 @@
                             mode: 'fade',
                             moveSlides: 1,
                             slideMargin: 40,
-                            infiniteLoop: true,
+                            infiniteLoop: false,
                             slideWidth: 400,
                             minSlides: 1,
                             maxSlides: 1,
-                            pause: 500,
+                            pause: 200,
                             pager: false,
-                            speed: 500,
-                            auto: true,
+                            speed: 300,
+                            auto: false,
                         });
+            
+             
            
            function sliderChange(val){
                     document.getElementById('sliderStatus').innerHTML = val;
@@ -57,18 +78,13 @@
            slider.reloadSlider({
             mode: 'fade',
             auto: true,
+            infiniteLoop: false,
             slideWidth: 400,
-            speed: delay*1000,
+            speed: delay*400,
             pager: false,
-            pause: delay*1000
+            pause: delay*600
 
              });
-           });
-           
-           $('#reload-slider').click(function(e){
-           e.preventDefault();
-             console.log("herro");
-             
            });
      
 ;

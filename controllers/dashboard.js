@@ -4,6 +4,8 @@
 const logger = require('../utils/logger');
 const accounts = require('./accounts.js');
 const pictureStore = require('../models/picture-store.js');
+const userStore = require('../models/user-store.js');
+
 const cloudinary = require('cloudinary');
 var Promise = require("bluebird");
 const Handlebars = require('handlebars');
@@ -34,13 +36,16 @@ const dashboard = {
       if (viewData.transition === undefined){
         viewData.transition = "rZoom";
       }
-      viewData.textColour = "000000";
+      viewData.textColour = "ffffff";
+      viewData.textBgColour = "1050ff";
 
       //if statement above to make sure we stay on the same transition mode after upload or delete
       cloudinary.v2.api.resources_by_tag("!!!!!" + loggedInUser.id, function(error, result){
         // this is all only done when we have a response from cloudinary
         viewData.album =  result.resources
         console.log('current user id: ', loggedInUser.id)
+                console.log('current user message: ', loggedInUser.message)
+
 
         // console.log('all : ', viewData.album)
         console.log("Total Images: " + viewData.album.length + " photos" )
@@ -57,20 +62,19 @@ const dashboard = {
             imgResult.tags.shift();
             //remove the user id tag
             
-            //this block removed as logo needs to be set later 
-            //to ensure it's picked up by all images
-            
 //             console.log(' >> tags : ', imgResult.tags)
-            if (imgResult.tags == 'logo') {
-
+            if (imgResult.tags.includes('logo')) {
+              
               viewData.logoUrl = imgResult.url;
+              viewData.logo = imgResult.public_id;
+          
+              viewData.user.messageHeight = Math.floor(imgResult.height/6);        
+
               console.log('Logo at ' + viewData.logoUrl);
+              imgResult.split = imgResult.url.split("upload");
+              viewData.endCardUrl = imgResult.split[0] + "upload/w_" + imgResult.width + ',l_text:' + viewData.user.messageFont + "_" + viewData.user.messageHeight + "_bold_italic:" + viewData.user.message + ",co_" + viewData.user.messageColour + ",g_south,y_" + viewData.user.messageHeight + ",a_-5" + imgResult.split[1]
+              console.log('End card at ' + viewData.endCardUrl);
               }
-//               console.log('THIS IS A LOGO')
-//             } else {
-//               console.log('THIS IS NOT A LOGO')
-//               console.log('img tag: ' + imgResult.tags);
-//             }
 
             imgResult.split = imgResult.url.split("upload");
            // image url can be found at imgResult.split[0] + 'upload' + imgResult.split[1]
@@ -83,6 +87,8 @@ const dashboard = {
             //console.log('img WIT: ' + res.width);
             let logoWidth = Math.floor(res.width/6);
             let textHeight = Math.floor(logoWidth/3);
+            let textBgHeight = Math.floor(textHeight*1.5);
+            let textPad = Math.floor(textHeight/4);
               //structure our images in a nice way
               let image = {
               img: res.url,
@@ -92,8 +98,12 @@ const dashboard = {
               split1: res.split[1],
               logo: viewData.logo,
               textHeight: textHeight,
+              textBgHeight: textBgHeight,
+              textPad: textPad,
               textColour: viewData.textColour,
-              logoWidth: logoWidth
+              textBgColour: viewData.textBgColour,
+              logoWidth: logoWidth,
+              width: res.width
 
             }
             console.log('logo size: ' + image.logoWidth);
@@ -124,7 +134,7 @@ const dashboard = {
             
             updatedAlbum = formattedImages
             
-                      viewData.album.image = updatedAlbum
+            viewData.album.image = updatedAlbum
 
           }
           if (updatedAlbum){
@@ -133,8 +143,8 @@ const dashboard = {
               //  console.log(viewData.album.image)
 
                 if (updatedAlbum[i].public_id == updatedAlbum[i].logo){
-                 updatedAlbum.splice(i, 1); 
-                            console.log("Logo spliced out... ");  
+                  updatedAlbum.splice(i, 1); 
+                  console.log("Logo spliced out... ");  
 
                 }
                 //seperate the logo image from the album
@@ -143,10 +153,10 @@ const dashboard = {
           console.log("Total Images (not counting logo image): " + updatedAlbum.length)
           }
           console.log("All Images... ");  
-          console.log(updatedAlbum);  
+          // console.log(updatedAlbum);  
           console.log("current user logo is at");  
-          console.log(viewData.logoUrl);
-          console.log(viewData.transition);
+          console.log(viewData.logo);
+          // console.log(viewData.transition);
 
           response.render('dashboard', viewData);         
           });
@@ -164,6 +174,25 @@ const dashboard = {
     });
       
   },
+  
+    addMessage(request, response) {
+      
+      const loggedInUser = accounts.getCurrentUser(request);
+      let message = (request.body.message);
+      let messageFont = (request.body.font);
+      let messageColour = (request.body.colour);
+
+      loggedInUser.message = message;
+      loggedInUser.messageColour = messageColour;
+      loggedInUser.messageFont = messageFont;
+
+      logger.info('changing user message to : ' + message)
+      console.log(loggedInUser);
+      // userStore.addMessage(message, loggedInUser.id);
+      response.redirect('/dashboard');
+ 
+  },
+    
   
     addTag(request, response) {
       

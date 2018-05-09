@@ -25,7 +25,7 @@ const pictureStore = {
     //check if current upload is intended to be a logo
     {
 
-    cloudinary.v2.api.resources_by_tag(userId, function(error, result){
+    cloudinary.v2.api.resources_by_tag("!!!!!" + userId, function(error, result){
       let album =  result.resources
       Promise.map(album, function(image) {
       //request to cloudinary for each of our images in the array
