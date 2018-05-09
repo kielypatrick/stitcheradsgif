@@ -44,8 +44,7 @@ const dashboard = {
         // this is all only done when we have a response from cloudinary
         viewData.album =  result.resources
         console.log('current user id: ', loggedInUser.id)
-                console.log('current user message: ', loggedInUser.message)
-
+        console.log('current user message: ', loggedInUser.message)
 
         // console.log('all : ', viewData.album)
         console.log("Total Images: " + viewData.album.length + " photos" )
@@ -209,6 +208,7 @@ const dashboard = {
     deleteAllPictures(request, response) {
       const loggedInUser = accounts.getCurrentUser(request);
       pictureStore.deleteAllPictures(loggedInUser.id, response);
+      loggedInUser.message = "";
   },
 
     deletePicture(request, response) {
