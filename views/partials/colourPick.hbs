@@ -38,7 +38,7 @@
     var images = parentDOM.getElementsByClassName("taggedImage");
       if (url.includes("oom")){
 
-        console.log(images.length/11);//HTMLCollection[number of images]
+       // console.log(images.length/11);//HTMLCollection[number of images]
     // find all images in our bxslider100 div with class=taggedImage
         for (i = 0; i < (images.length/11); i++) { 
 
@@ -87,7 +87,7 @@
 
   window.addEventListener("load", startup, false);
   
-  function colourChange2(val2, val){  
+  function colourChange2(val2){  
            
     var parentDOM = document.getElementById("bxslider100");
 
@@ -97,12 +97,27 @@
     bgColour = val2.slice(1, 7);
     var val = (document.getElementById('textColour').innerHTML);
     console.log(val);
-
   
-    
     var images = parentDOM.getElementsByClassName("taggedImage");
-            console.log(images.length);//HTMLCollection[number of images]
+    if (url.includes("oom")){
 
+       // console.log(images.length/11);//HTMLCollection[number of images]
+    // find all images in our bxslider100 div with class=taggedImage
+        for (i = 0; i < (images.length); i++) { 
+
+          var str2 = parentDOM.getElementsByClassName("taggedImage")[i].src; 
+          
+          var res2 = str2.replace(/co_rgb:[0-9a-f]+/g, "co_rgb:" + bgColour);
+      parentDOM.getElementsByClassName("taggedImage")[i].src = res2;
+      console.log("backgroundColour set to " + bgColour);
+      console.log(res2);
+          }
+    
+      //run this again as colourChange 2 affects colours globally, and text will be lost in the background
+      colourChange(val);
+    }
+    else{
+         
     //     console.log(images);//HTMLCollection[number of images]
     // find all images in our bxslider100 div with class=taggedImage
     for (i = 0; i < images.length; i++) { 
@@ -119,6 +134,7 @@
     
       //run this again as colourChange 2 affects colours globally, and text will be lost in the background
       colourChange(val);
+    }
 
   }     
     
