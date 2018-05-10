@@ -38,6 +38,10 @@ const dashboard = {
       }
       viewData.textColour = "ffffff";
       viewData.textBgColour = "1050ff";
+      if(!viewData.user.messageFont){
+        viewData.user.messageFont = "Verdana";
+        viewData.user.messageColour= "White";        
+      }
 
       //if statement above to make sure we stay on the same transition mode after upload or delete
       cloudinary.v2.api.resources_by_tag("!!!!!" + loggedInUser.id, function(error, result){
@@ -45,6 +49,7 @@ const dashboard = {
         viewData.album =  result.resources
         console.log('current user id: ', loggedInUser.id)
         console.log('current user message: ', loggedInUser.message)
+        console.log('current user message:Font ', loggedInUser.messageFont)
 
         // console.log('all : ', viewData.album)
         console.log("Total Images: " + viewData.album.length + " photos" )
@@ -67,7 +72,7 @@ const dashboard = {
               viewData.logoUrl = imgResult.url;
               viewData.logo = imgResult.public_id;
           
-              viewData.user.messageHeight = Math.floor(imgResult.height/6);        
+              viewData.user.messageHeight = Math.floor(imgResult.height/6); 
 
               console.log('Logo at ' + viewData.logoUrl);
               imgResult.split = imgResult.url.split("upload");
