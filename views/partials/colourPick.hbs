@@ -1,4 +1,6 @@
- <div class="field">
+<div class="two fields">
+
+  <div class="field">
     <h2 for="colorWell">Text Colour:</h2>
     <input onChange="colourChange(this.value)" type="color" value="#000000" id="colorWell">
     <p>
@@ -6,14 +8,21 @@
     </p>
     <p type="hidden">
       <span id="textColour">{{textColour}}</span>
-
     </p>
-
- </div>
+  </div>
+   <div class="field" text-align:right>
+    <h2 for="colorWell2">Background Colour:</h2>
+    <input onChange="colourChange2(this.value)" type="color" value="#000000" id="colorWell2">
+    <p type="hidden">
+      <span id="bgColour">{{textBgColour}}</span>
+    </p>
+  </div>
+</div>
 <script>
   var colorWell;
   var defaultColor = "#0000ff";
   var textColour;
+  var url = window.location.search;//need this to treat zoomed pages differently
 
   window.addEventListener("load", startup, false);
   
@@ -25,26 +34,99 @@
     console.log(val + "  textColour with #");
     textColour = val.slice(1, 7);
     //removes hashtag for use in cloudinary URL
+   
+    var images = parentDOM.getElementsByClassName("taggedImage");
+      if (url.includes("oom")){
+
+        console.log(images.length/11);//HTMLCollection[number of images]
+    // find all images in our bxslider100 div with class=taggedImage
+        for (i = 0; i < (images.length/11); i++) { 
+
+          var imgTags = document.getElementById('imgTags' + i).innerHTML;
+    //this imgTags id is in the card partial
+
+          var str = parentDOM.getElementsByClassName("taggedImage")[(i*11)+8].src; 
+          var str1 = parentDOM.getElementsByClassName("taggedImage")[(i*11)+9].src; 
+          var str2 = parentDOM.getElementsByClassName("taggedImage")[(i*11)+10].src; 
+
+          console.log(imgTags+ " tag" + i);
+          console.log(str);
+          // find the image source string and change text to our new colour
+          var res = str.replace(/bold:.*,co_rgb:[0-9a-f]+/, "bold:" + imgTags + ",co_rgb:" + textColour);
+          var res1 = str1.replace(/bold:.*,co_rgb:[0-9a-f]+/, "bold:" + imgTags + ",co_rgb:" + textColour);
+          var res2 = str2.replace(/bold:.*,co_rgb:[0-9a-f]+/, "bold:" + imgTags + ",co_rgb:" + textColour);
+
+          parentDOM.getElementsByClassName("taggedImage")[(i*11)+8].src = res;
+          parentDOM.getElementsByClassName("taggedImage")[(i*11)+9].src = res1;
+          parentDOM.getElementsByClassName("taggedImage")[(i*11)+10].src = res2;
+
+          console.log("textColour set to " + textColour);
+          console.log(res);
+      }
+
+    }
+    else
+    {
+       for (i = 0; i < images.length; i++) { 
+          
+         var imgTags = document.getElementById('imgTags' + i).innerHTML;
+
+          var str = parentDOM.getElementsByClassName("taggedImage")[i].src; 
+          //console.log(str + "  =passed in string");
+          // find the image source string and change to our new text colour
+          var res = str.replace(/bold:.*,co_rgb:[0-9a-f]+/, "bold:" + imgTags + ",co_rgb:" + textColour);          
+          parentDOM.getElementsByClassName("taggedImage")[i].src = res;
+          console.log("textColour set to " + textColour);
+          console.log(res);
+    }
+    }
+  }  
+  var colorWell2;
+  var defaultColor2 = "#0000ff";
+  var bgColour;
+
+  window.addEventListener("load", startup, false);
+  
+  function colourChange2(val2, val){  
+           
+    var parentDOM = document.getElementById("bxslider100");
+
+    //remove hashtag for use in cloudinary URL
+    document.getElementById('bgColour').innerHTML = val2;
+    console.log(val2 + "  bgColour with #");
+    bgColour = val2.slice(1, 7);
+    var val = (document.getElementById('textColour').innerHTML);
+    console.log(val);
+
+  
     
     var images = parentDOM.getElementsByClassName("taggedImage");
+            console.log(images.length);//HTMLCollection[number of images]
+
     //     console.log(images);//HTMLCollection[number of images]
     // find all images in our bxslider100 div with class=taggedImage
     for (i = 0; i < images.length; i++) { 
-
-      var str = parentDOM.getElementsByClassName("taggedImage")[i].src; 
-      console.log(str);
-      // find the image source string and change to our new colour
-      var res = str.replace(/_rgb:[0-9a-f]+/, "_rgb:" + textColour);
-      parentDOM.getElementsByClassName("taggedImage")[i].src = res;
-      console.log("textColour set to " + textColour);
-      console.log(res);
+      
+      var str2 = parentDOM.getElementsByClassName("taggedImage")[i].src; 
+      console.log(str2 + "help I'm trapped");
+      // find the image source string and change to our new bgcolour
+      var res2 = str2.replace(/co_rgb:[0-9a-f]+/g, "co_rgb:" + bgColour);
+      parentDOM.getElementsByClassName("taggedImage")[i].src = res2;
+      console.log("backgroundColour set to " + bgColour);
+      console.log(res2);
 
     }
-  }      
+    
+      //run this again as colourChange 2 affects colours globally, and text will be lost in the background
+      colourChange(val);
+
+  }     
     
   function startup() {
     colorWell = document.querySelector("#colorWell");
     colorWell.value = defaultColor;
+    colorWell2 = document.querySelector("#colorWell2");
+    colorWell2.value = defaultColor2;
 
   } 
   
