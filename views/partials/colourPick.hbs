@@ -3,7 +3,7 @@
   <div class="field">
     <h2 for="colorWell">Text Colour:</h2>
     <input onChange="colourChange(this.value)" type="color" value="#000000" id="colorWell">
-    <p>
+    <p >
       Change Colours here! 
     </p>
     <p type="hidden">
@@ -22,7 +22,7 @@
   var colorWell;
   var defaultColor = "#0000ff";
   var textColour;
-  var url = window.location.search;//need this to treat zoomed pages differently
+  var transition = document.getElementById('gifTransition').innerHTML //need this to treat zoomed pages differently
 
   window.addEventListener("load", startup, false);
   
@@ -32,13 +32,13 @@
 
     document.getElementById('textColour').innerHTML = val;
     console.log(val + "  textColour with #");
-    textColour = val.slice(1, 7);
+    textColour = val.slice(-6);
     //removes hashtag for use in cloudinary URL
    
     var images = parentDOM.getElementsByClassName("taggedImage");
-      if (url.includes("oom")){
+      if (transition.includes("oom")){
 
-       // console.log(images.length/11);//HTMLCollection[number of images]
+       console.log(images.length/11);//HTMLCollection[number of images]
     // find all images in our bxslider100 div with class=taggedImage
         for (i = 0; i < (images.length/11); i++) { 
 
@@ -49,6 +49,7 @@
           var str1 = parentDOM.getElementsByClassName("taggedImage")[(i*11)+9].src; 
           var str2 = parentDOM.getElementsByClassName("taggedImage")[(i*11)+10].src; 
 
+          //ran into difficulty here where the majority of pictures are untagged
           console.log(imgTags+ " tag" + i);
           console.log(str);
           // find the image source string and change text to our new colour
@@ -70,6 +71,7 @@
        for (i = 0; i < images.length; i++) { 
           
          var imgTags = document.getElementById('imgTags' + i).innerHTML;
+          console.log(imgTags+ " tag" + i);
 
           var str = parentDOM.getElementsByClassName("taggedImage")[i].src; 
           //console.log(str + "  =passed in string");
@@ -99,7 +101,7 @@
     console.log(val);
   
     var images = parentDOM.getElementsByClassName("taggedImage");
-    if (url.includes("oom")){
+    if (transition.includes("oom")){
 
        // console.log(images.length/11);//HTMLCollection[number of images]
     // find all images in our bxslider100 div with class=taggedImage
@@ -107,7 +109,7 @@
 
           var str2 = parentDOM.getElementsByClassName("taggedImage")[i].src; 
           
-          var res2 = str2.replace(/co_rgb:[0-9a-f]+/g, "co_rgb:" + bgColour);
+          var res2 = str2.replace(/_rgb:[0-9a-f]+/g, "_rgb:" + bgColour);
       parentDOM.getElementsByClassName("taggedImage")[i].src = res2;
       console.log("backgroundColour set to " + bgColour);
       console.log(res2);
@@ -125,7 +127,7 @@
       var str2 = parentDOM.getElementsByClassName("taggedImage")[i].src; 
       console.log(str2 + "help I'm trapped");
       // find the image source string and change to our new bgcolour
-      var res2 = str2.replace(/co_rgb:[0-9a-f]+/g, "co_rgb:" + bgColour);
+      var res2 = str2.replace(/_rgb:[0-9a-f]+/g, "_rgb:" + bgColour);
       parentDOM.getElementsByClassName("taggedImage")[i].src = res2;
       console.log("backgroundColour set to " + bgColour);
       console.log(res2);
