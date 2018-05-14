@@ -7,20 +7,20 @@
       Change Colours here! 
     </p>
     <p type="hidden">
-      <span id="textColour">{{textColour}}</span>
+      <span id="textColour" style="display:none">{{textColour}}</span>
     </p>
   </div>
    <div class="field" text-align:right>
     <h2 for="colorWell2">Background Colour:</h2>
     <input onChange="colourChange2(this.value)" type="color" value="#000000" id="colorWell2">
     <p type="hidden">
-      <span id="bgColour">{{textBgColour}}</span>
+      <span id="bgColour" style="display:none">{{textBgColour}}</span>
     </p>
   </div>
 </div>
 <script>
   var colorWell;
-  var defaultColor = "#0000ff";
+  var defaultColor = "#ffffff";
   var textColour;
   var transition = document.getElementById('gifTransition').innerHTML //need this to treat zoomed pages differently
 
@@ -79,7 +79,7 @@
           var res = str.replace(/bold:.*,co_rgb:[0-9a-f]+/, "bold:" + imgTags + ",co_rgb:" + textColour);          
           parentDOM.getElementsByClassName("taggedImage")[i].src = res;
           console.log("textColour set to " + textColour);
-          console.log(res);
+          console.log(res + " text colour changed");
     }
     }
   }  
@@ -125,7 +125,7 @@
     for (i = 0; i < images.length; i++) { 
       
       var str2 = parentDOM.getElementsByClassName("taggedImage")[i].src; 
-      console.log(str2 + "help I'm trapped");
+      console.log(str2 + " background changed");
       // find the image source string and change to our new bgcolour
       var res2 = str2.replace(/_rgb:[0-9a-f]+/g, "_rgb:" + bgColour);
       parentDOM.getElementsByClassName("taggedImage")[i].src = res2;
@@ -133,9 +133,8 @@
       console.log(res2);
 
     }
-    
-      //run this again as colourChange 2 affects colours globally, and text will be lost in the background
       colourChange(val);
+      //run this again as colourChange 2 affects colours globally, and text will be lost in the background
     }
 
   }     

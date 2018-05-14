@@ -88,7 +88,6 @@ const dashboard = {
           }
 
           }).then((res) =>{
-            //console.log('img WIT: ' + res.width);
             let logoWidth = Math.floor(res.width/6);
             let textHeight = Math.floor(logoWidth/3);
             let textBgHeight = Math.floor(textHeight*1.5);

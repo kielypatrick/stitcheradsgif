@@ -11,7 +11,7 @@
           {{tags}} <span class="close1">&times;</span>
           </h3>
           <p id="imgTags{{@index}}" style="display:none">{{tags}}</p>
-<!--           this is just included to be able to call of the image tags in client side scripts -->
+<!--           this is just included to be able to call on the image tags in client side scripts -->
          
             <div class="ui large center aligned image">
               {{#if tags }}
@@ -87,7 +87,7 @@
              
         <i onclick="toggle('tags{{@index}}', '{{@index}}')" style="display:inline;" class="green add icon"></i> 
         
-<!--         @index item passed to toggle mode to facilitate input.focus method -->
+<!--         @index item passed to toggle mode to facilitate input.focus method (layouts/main.hbs 24)-->
         
         <div id="tags{{@index}}" style="display:none;">
           <form action="/dashboard/addtag?{{img}}" method="post" enctype="multipart/form-data">
