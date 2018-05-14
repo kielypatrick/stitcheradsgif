@@ -16,17 +16,20 @@
            
           {{#each album.image}}
             {{#if tags }}
+           <!--            version of the slides where the image has tags -->
+
               <li>
                 {{> finalTaggedImage}}
               </li>
             {{else}}
-
+           <!--            version of the slides where the image has no tag -->
               <li>
                 {{> finalImage}}
               </li>
             {{/if}}
 
           {{/each}}
+           <!--            logo/end card slide if logo has been uploaded -->
            {{#ifEquals logo "tempLogo.png"}}
             {{else}}
               {{#if user.message}}

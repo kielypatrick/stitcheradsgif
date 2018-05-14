@@ -32,6 +32,7 @@
             <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_60/w_0.97,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard8"/></li>
            
             {{#if tags }}
+<!--            version of the slides where the image has tags -->
 
             <li>
               <img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih,b_rgb:fff/l_dit_dot,w_{{width}},h_{{textBgHeight}},e_colorize,co_rgb:{{textBgColour}},g_south/l_text:Arial_{{textHeight}}_bold:{{tags}},co_rgb:{{textColour}},g_south_west,x_{{textHeight}},y_{{textPad}}{{split1}}" title="Blue Lizard9"/>
@@ -42,6 +43,8 @@
   <li>
     
             {{else}}
+               <!--            version of the slides where the image has no tag -->
+
               <img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_70/w_0.98,c_crop,g_center/w_iw,h_ih,{{split1}}" title="Blue Lizard9"/>
             </li>
            <li>
@@ -53,6 +56,8 @@
             {{/if}}
 
           {{/each}}
+           <!--            logo/end card slide if logo has been uploaded -->
+
            {{#ifEquals logo "tempLogo.png"}}
             {{else}}
               {{#if user.message}}

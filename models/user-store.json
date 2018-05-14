@@ -14,13 +14,7 @@
       "password": "secret",
       "id": "2b6f0989-7b7f-4a38-ad26-aa06b922d751"
     },
-    {
-      "firstName": "",
-      "lastName": "",
-      "email": "homer@simpson.com",
-      "password": "secret",
-      "id": "558282a8-632a-449a-87e1-e2846c00f90e"
-    },
+    
     {
       "firstName": "bart",
       "lastName": "simpson",
@@ -33,8 +27,7 @@
       "lastName": "ronan",
       "email": "ian.ronan@stitcherads.com",
       "password": "secret",
-      "id": "f48e0dc6-d1f3-473f-9666-a96bcd1710e0",
-      "message": "trackerknacker"
+      "id": "f48e0dc6-d1f3-473f-9666-a96bcd1710e0"
     },
     {
       "firstName": "test",
