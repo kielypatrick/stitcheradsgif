@@ -4,112 +4,20 @@
   <p>
     Upload your <strong>images</strong>
   </p>
+  
+  <p>
+    (Images of similar aspect ratio work best ie portrait or landscape )
+  </p>
+  <br><br>
   <p>
     Set your <strong>logo</strong> (assign "logo" as the title of the image you wish you use)
   </p>
   <p>
   View your <strong>gif!</strong> 
   </p>
-  
-  <!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  
-
-</div>
-
-  
-   
-</section>
-
-<div class="container">
-
-            <h3>How to</h3>
-            
-  <p>An example demonstrating the use of the <code>&lt;input type="color"&gt;</code>
-   control.</p>
-
-<label for="colorWell">Colour:</label>
-<input type="color" value="#ff0000" id="colorWell">
-
-<p>Watch the paragraph colors change when you adjust the color picker.
-   As you make changes in the color picker, the first paragraph's
-   color changes, as a preview (this uses the <code>input</code>
-   event). When you close the color picker, the <code>change</code>
-   event fires, and we detect that to change every paragraph to
-   the selected color.</p>
-  
-  Colour change to <span id="newColor">2</span>
-  
- <h2>Modal Example</h2>
-
-
-<script>
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-
-
-  <script>
-    var colorWell;
-    var defaultColor = "#0000ff";
-    window.addEventListener("load", startup, false);
-    
-    function startup() {
-      colorWell = document.querySelector("#colorWell");
-      colorWell.value = defaultColor;
-      colorWell.addEventListener("input", updateFirst, false);
-      colorWell.addEventListener("change", updateAll, false);
-      colorWell.select();
-    }
-    
-    function updateFirst(event) {
-      var p = document.querySelector("p");
-      if (p) {
-        p.style.color = event.target.value;
-        console.log(event.target.value);
-        colorChange(event)
-      }
-    }
-    
-    function updateAll(event) {
-      document.querySelectorAll("p").forEach(function(p) {
-        p.style.color = event.target.value;
-      });
-    }
-    
-   function colorChange(event) {
-      document.getElementById('newColor').innerHTML = event.target.value;
-    }
-    
-  </script>
-        </div>
+  <p>
+    Adjust the colours and transitions to your liking
+  </p>
+      
 
 
