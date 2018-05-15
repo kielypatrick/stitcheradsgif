@@ -15,21 +15,21 @@
          <ul class="bxslider">
            
           {{#each album.image}}
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.9,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard1"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.9,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard1"/></li>
 
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.91,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard2"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.91,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard2"/></li>
             
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.92,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard3"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.92,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard3"/></li>
           
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.93,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard4"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.93,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard4"/></li>
 
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.94,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard5"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.94,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard5"/></li>
           
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.95,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard6"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.95,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard6"/></li>
             
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.96,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard7"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_40/w_0.96,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard7"/></li>
            
-            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_60/w_0.97,c_crop,g_center/w_iw,h_ih,b_rgb:fff{{split1}}" title="Blue Lizard8"/></li>
+            <li><img class="taggedImage" src="{{split}}upload/l_{{logo}},w_{{logoWidth}},c_scale,g_north_east,o_60/w_0.97,c_crop,g_center/w_iw,h_ih,b_rgb:{{textBgColour}}{{split1}}" title="Blue Lizard8"/></li>
            
             {{#if tags }}
 <!--            version of the slides where the image has tags -->
@@ -72,6 +72,7 @@
            {{/ifEquals}}
          </ul>
         </div>
+<button onclick="myFunction()">Try it</button>
       
          <script>
            var slider = $('.bxslider').bxSlider({
