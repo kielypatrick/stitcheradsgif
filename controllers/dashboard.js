@@ -36,18 +36,21 @@ const dashboard = {
       if (viewData.transition === undefined){
         viewData.transition = "rZoom";
       }
+      //if statement above to make sure we stay on the same transition mode after upload or delete
       viewData.textColour = "ffffff";
       viewData.textBgColour = "1050ff";
       if(!viewData.user.messageFont){
         viewData.user.messageFont = "Verdana";
         viewData.user.messageColour= "White";        
       }
-
-      //if statement above to make sure we stay on the same transition mode after upload or delete
+      //if statement above to populate message font and colour to a default 
+      
       cloudinary.v2.api.resources_by_tag("!!!!!" + loggedInUser.id, function(error, result){
         // this is all only done when we have a response from cloudinary
         viewData.album =  result.resources
+        
         console.log('current user id: ', loggedInUser.id)
+
         console.log('current user message: ', loggedInUser.message)
         console.log('current user message:Font ', loggedInUser.messageFont)
 
@@ -143,7 +146,7 @@ const dashboard = {
           if (updatedAlbum){
             let i
               for (i = 0; i < updatedAlbum.length; i++){
-              //  console.log(viewData.album.image)
+               console.log(viewData.album.image)
 
                 if (updatedAlbum[i].public_id == updatedAlbum[i].logo){
                   updatedAlbum.splice(i, 1); 
